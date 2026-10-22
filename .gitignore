@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.vite/
+*.local
+test-results/
+tmp/
+qa/current/
+docs/performance/*trace.json
+docs/performance/*devtoolslog.json

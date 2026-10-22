@@ -1,0 +1,14 @@
+{
+  "method": "Production app in a 390x844 iframe on desktop Chrome. No physical-phone or mobile-CPU/GPU emulation.",
+  "browserFps": "1.96",
+  "calls": "4",
+  "cpuRenderSubmitMs": "0.10",
+  "dpr": "1",
+  "fps": "17.05",
+  "frames": "725",
+  "height": "844",
+  "renderer": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x00009A49) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "seconds": "42.52",
+  "triangles": "394",
+  "width": "390"
+}

@@ -1,0 +1,1147 @@
+{
+  "lighthouseVersion": "13.5.0",
+  "requestedUrl": "http://127.0.0.1:4175/?debug=1&autoprofile=1&collect=1&profile=baseline-1x",
+  "mainDocumentUrl": "http://127.0.0.1:4175/?debug=1&autoprofile=1&collect=1&profile=baseline-1x",
+  "finalDisplayedUrl": "http://127.0.0.1:4175/?debug=1&autoprofile=1&collect=1&profile=baseline-1x",
+  "finalUrl": "http://127.0.0.1:4175/?debug=1&autoprofile=1&collect=1&profile=baseline-1x",
+  "fetchTime": "2026-10-14T19:27:23.900Z",
+  "gatherMode": "navigation",
+  "runWarnings": [],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+  "environment": {
+    "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+    "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+    "benchmarkIndex": 1070.5,
+    "credits": {}
+  },
+  "audits": {
+    "metrics": {
+      "id": "metrics",
+      "title": "Metrics",
+      "description": "Collects all available metrics.",
+      "score": 1,
+      "scoreDisplayMode": "informative",
+      "numericValue": 1229,
+      "numericUnit": "millisecond",
+      "details": {
+        "type": "debugdata",
+        "items": [
+          {
+            "firstContentfulPaint": 156,
+            "firstContentfulPaintTs": 272879657186,
+            "firstContentfulPaintAllFrames": 156,
+            "firstContentfulPaintAllFramesTs": 272879657186,
+            "largestContentfulPaint": 539,
+            "largestContentfulPaintTs": 272880040360,
+            "largestContentfulPaintAllFrames": 539,
+            "largestContentfulPaintAllFramesTs": 272880040360,
+            "interactive": 1229,
+            "interactiveTs": 272880730499,
+            "speedIndex": 436,
+            "speedIndexTs": 272879937238,
+            "totalBlockingTime": 525,
+            "maxPotentialFID": 215,
+            "cumulativeLayoutShift": 0.06818674546510102,
+            "cumulativeLayoutShiftMainFrame": 0.06818674546510102,
+            "lcpRenderDelay": 505,
+            "timeToFirstByte": 34,
+            "timeToFirstByteTs": 272879535061,
+            "observedTimeOrigin": 0,
+            "observedTimeOriginTs": 272879501238,
+            "observedNavigationStart": 0,
+            "observedNavigationStartTs": 272879501238,
+            "observedFirstPaint": 156,
+            "observedFirstPaintTs": 272879657186,
+            "observedFirstContentfulPaint": 156,
+            "observedFirstContentfulPaintTs": 272879657186,
+            "observedFirstContentfulPaintAllFrames": 156,
+            "observedFirstContentfulPaintAllFramesTs": 272879657186,
+            "observedLargestContentfulPaint": 539,
+            "observedLargestContentfulPaintTs": 272880040360,
+            "observedLargestContentfulPaintAllFrames": 539,
+            "observedLargestContentfulPaintAllFramesTs": 272880040360,
+            "observedTraceEnd": 23174,
+            "observedTraceEndTs": 272902675126,
+            "observedLoad": 155,
+            "observedLoadTs": 272879655838,
+            "observedDomContentLoaded": 153,
+            "observedDomContentLoadedTs": 272879654512,
+            "observedCumulativeLayoutShift": 0.06818674546510102,
+            "observedCumulativeLayoutShiftMainFrame": 0.06818674546510102,
+            "observedFirstVisualChange": 70,
+            "observedFirstVisualChangeTs": 272879571238,
+            "observedLastVisualChange": 8267,
+            "observedLastVisualChangeTs": 272887768238,
+            "observedSpeedIndex": 436,
+            "observedSpeedIndexTs": 272879937029
+          },
+          {
+            "lcpInvalidated": false
+          }
+        ]
+      }
+    }
+  },
+  "configSettings": {
+    "output": [
+      "json"
+    ],
+    "maxWaitForFcp": 30000,
+    "maxWaitForLoad": 30000,
+    "pauseAfterFcpMs": 17000,
+    "pauseAfterLoadMs": 17000,
+    "networkQuietThresholdMs": 5250,
+    "cpuQuietThresholdMs": 5250,
+    "formFactor": "mobile",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 0,
+      "downloadThroughputKbps": 0,
+      "uploadThroughputKbps": 0,
+      "cpuSlowdownMultiplier": 1
+    },
+    "throttlingMethod": "devtools",
+    "screenEmulation": {
+      "mobile": true,
+      "width": 390,
+      "height": 844,
+      "deviceScaleFactor": 1,
+      "disabled": false
+    },
+    "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+    "auditMode": false,
+    "gatherMode": false,
+    "clearStorageTypes": [
+      "file_systems",
+      "shader_cache",
+      "service_workers",
+      "cache_storage"
+    ],
+    "disableStorageReset": false,
+    "debugNavigation": false,
+    "channel": "cli",
+    "usePassiveGathering": false,
+    "disableFullPageScreenshot": true,
+    "skipAboutBlank": false,
+    "blankPage": "about:blank",
+    "ignoreStatusCode": false,
+    "locale": "en-US",
+    "blockedUrlPatterns": null,
+    "additionalTraceCategories": null,
+    "extraHeaders": null,
+    "precomputedLanternData": null,
+    "onlyAudits": [
+      "metrics"
+    ],
+    "onlyCategories": null,
+    "skipAudits": null
+  },
+  "categories": {
+    "performance": {
+      "title": "Performance",
+      "supportedModes": [
+        "navigation",
+        "timespan",
+        "snapshot"
+      ],
+      "auditRefs": [
+        {
+          "id": "metrics",
+          "weight": 0,
+          "group": "hidden"
+        }
+      ],
+      "id": "performance",
+      "score": 0
+    }
+  },
+  "categoryGroups": {
+    "metrics": {
+      "title": "Metrics"
+    },
+    "insights": {
+      "title": "Insights",
+      "description": "These insights are also available in the Chrome DevTools Performance Panel - [record a trace](https://developer.chrome.com/docs/devtools/performance/reference) to view more detailed information."
+    },
+    "diagnostics": {
+      "title": "Diagnostics",
+      "description": "More information about the performance of your application. These numbers don't [directly affect](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/) the Performance score."
+    },
+    "a11y-best-practices": {
+      "title": "Best practices",
+      "description": "These items highlight common accessibility best practices."
+    },
+    "a11y-color-contrast": {
+      "title": "Contrast",
+      "description": "These are opportunities to improve the legibility of your content."
+    },
+    "a11y-names-labels": {
+      "title": "Names and labels",
+      "description": "These are opportunities to improve the semantics of the controls in your application. This may enhance the experience for users of assistive technology, like a screen reader."
+    },
+    "a11y-navigation": {
+      "title": "Navigation",
+      "description": "These are opportunities to improve keyboard navigation in your application."
+    },
+    "a11y-aria": {
+      "title": "ARIA",
+      "description": "These are opportunities to improve the usage of ARIA in your application which may enhance the experience for users of assistive technology, like a screen reader."
+    },
+    "a11y-language": {
+      "title": "Internationalization and localization",
+      "description": "These are opportunities to improve the interpretation of your content by users in different locales."
+    },
+    "a11y-audio-video": {
+      "title": "Audio and video",
+      "description": "These are opportunities to provide alternative content for audio and video. This may improve the experience for users with hearing or vision impairments."
+    },
+    "a11y-tables-lists": {
+      "title": "Tables and lists",
+      "description": "These are opportunities to improve the experience of reading tabular or list data using assistive technology, like a screen reader."
+    },
+    "seo-mobile": {
+      "title": "Mobile Friendly",
+      "description": "Make sure your pages are mobile friendly so users don’t have to pinch or zoom in order to read the content pages. [Learn how to make pages mobile-friendly](https://developers.google.com/search/mobile-sites/)."
+    },
+    "seo-content": {
+      "title": "Content Best Practices",
+      "description": "Format your HTML in a way that enables crawlers to better understand your app’s content."
+    },
+    "seo-crawl": {
+      "title": "Crawling and Indexing",
+      "description": "To appear in search results, crawlers need access to your app."
+    },
+    "best-practices-trust-safety": {
+      "title": "Trust and Safety"
+    },
+    "best-practices-ux": {
+      "title": "User Experience"
+    },
+    "best-practices-browser-compat": {
+      "title": "Browser Compatibility"
+    },
+    "best-practices-general": {
+      "title": "General"
+    },
+    "webmcp": {
+      "title": "WebMCP",
+      "description": "Audits validating WebMCP integration."
+    },
+    "agent-accessibility": {
+      "title": "Agent Accessibility",
+      "description": "These audits highlight best practices for improving the accessibility of the website for AI agents."
+    },
+    "agent-discoverability": {
+      "title": "Agent Discoverability",
+      "description": "These audits validate that websites expose discoverable resources, documentation, and catalogs for AI agents."
+    },
+    "hidden": {
+      "title": ""
+    }
+  },
+  "stackPacks": [],
+  "entities": [
+    {
+      "name": "127.0.0.1",
+      "origins": [
+        "http://127.0.0.1:4175"
+      ],
+      "isFirstParty": true,
+      "isUnrecognized": true
+    }
+  ],
+  "timing": {
+    "entries": [
+      {
+        "startTime": 3790.33,
+        "name": "lh:config",
+        "duration": 6665.26,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 3798.17,
+        "name": "lh:config:resolveArtifactsToDefns",
+        "duration": 1546.3,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 10456.31,
+        "name": "lh:runner:gather",
+        "duration": 29871.68,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 10620.74,
+        "name": "lh:driver:connect",
+        "duration": 26.5,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 10648.11,
+        "name": "lh:driver:navigate",
+        "duration": 16.7,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 10665.72,
+        "name": "lh:gather:getBenchmarkIndex",
+        "duration": 1014.16,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 11680.18,
+        "name": "lh:gather:getVersion",
+        "duration": 1.28,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 11681.64,
+        "name": "lh:gather:getDevicePixelRatio",
+        "duration": 1.85,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 11685.78,
+        "name": "lh:prepare:navigationMode",
+        "duration": 564.76,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 11687.8,
+        "name": "lh:gather:getVersion",
+        "duration": 1.87,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 11725.46,
+        "name": "lh:storage:clearDataForOrigin",
+        "duration": 250.81,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 11976.57,
+        "name": "lh:storage:clearBrowserCaches",
+        "duration": 268.5,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 12247.27,
+        "name": "lh:gather:prepareThrottlingAndNetwork",
+        "duration": 3.2,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 12340.71,
+        "name": "lh:driver:navigate",
+        "duration": 23178.28,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40183.56,
+        "name": "lh:computed:NetworkRecords",
+        "duration": 2.51,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40187.15,
+        "name": "lh:gather:getArtifact:DevtoolsLog",
+        "duration": 0.07,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40187.26,
+        "name": "lh:gather:getArtifact:Trace",
+        "duration": 0.04,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40187.5,
+        "name": "lh:gather:getArtifact:NetworkUserAgent",
+        "duration": 0.13,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40187.66,
+        "name": "lh:gather:getArtifact:Scripts",
+        "duration": 0.19,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40187.91,
+        "name": "lh:gather:getArtifact:SourceMaps",
+        "duration": 0.11,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40188.04,
+        "name": "lh:gather:getArtifact:Stacks",
+        "duration": 23.08,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40188.2,
+        "name": "lh:gather:collectStacks",
+        "duration": 22.85,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40329.59,
+        "name": "lh:runner:audit",
+        "duration": 3832.61,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40329.98,
+        "name": "lh:runner:auditing",
+        "duration": 3831.39,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40332.2,
+        "name": "lh:audit:metrics",
+        "duration": 3829.1,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40332.8,
+        "name": "lh:computed:TimingSummary",
+        "duration": 3827.35,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40333.63,
+        "name": "lh:computed:ProcessedTrace",
+        "duration": 435.92,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40769.7,
+        "name": "lh:computed:ProcessedNavigation",
+        "duration": 13.04,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 40782.95,
+        "name": "lh:computed:Speedline",
+        "duration": 510.47,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41293.65,
+        "name": "lh:computed:FirstContentfulPaint",
+        "duration": 0.9,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41294.65,
+        "name": "lh:computed:FirstContentfulPaintAllFrames",
+        "duration": 0.18,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41294.88,
+        "name": "lh:computed:LargestContentfulPaint",
+        "duration": 0.18,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41295.11,
+        "name": "lh:computed:LargestContentfulPaintAllFrames",
+        "duration": 0.4,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41295.64,
+        "name": "lh:computed:Interactive",
+        "duration": 18.92,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41314.67,
+        "name": "lh:computed:CumulativeLayoutShift",
+        "duration": 6.71,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41321.47,
+        "name": "lh:computed:MaxPotentialFID",
+        "duration": 17.9,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41339.51,
+        "name": "lh:computed:SpeedIndex",
+        "duration": 0.44,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41340.02,
+        "name": "lh:computed:TotalBlockingTime",
+        "duration": 15.75,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41355.84,
+        "name": "lh:computed:LCPBreakdown",
+        "duration": 2802.48,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41356.16,
+        "name": "lh:computed:NavigationInsights",
+        "duration": 2802.05,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41356.36,
+        "name": "lh:computed:TraceEngineResult",
+        "duration": 2801.65,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41369.94,
+        "name": "lh:computed:TraceEngineResult:total",
+        "duration": 2743.04,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41370,
+        "name": "lh:computed:TraceEngineResult:parse",
+        "duration": 1994.7,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 41372.5,
+        "name": "lh:computed:TraceEngineResult:parse:handleEvent",
+        "duration": 1084.33,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42456.95,
+        "name": "lh:computed:TraceEngineResult:parse:Meta:finalize",
+        "duration": 8.02,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42465.13,
+        "name": "lh:computed:TraceEngineResult:parse:AnimationFrames:finalize",
+        "duration": 15.3,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42480.55,
+        "name": "lh:computed:TraceEngineResult:parse:Animations:finalize",
+        "duration": 15.84,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42496.49,
+        "name": "lh:computed:TraceEngineResult:parse:Samples:finalize",
+        "duration": 14.51,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42511.08,
+        "name": "lh:computed:TraceEngineResult:parse:AuctionWorklets:finalize",
+        "duration": 15.91,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42527.1,
+        "name": "lh:computed:TraceEngineResult:parse:NetworkRequests:finalize",
+        "duration": 23.77,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42551.03,
+        "name": "lh:computed:TraceEngineResult:parse:Renderer:finalize",
+        "duration": 171.55,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42722.7,
+        "name": "lh:computed:TraceEngineResult:parse:Flows:finalize",
+        "duration": 34.66,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42757.5,
+        "name": "lh:computed:TraceEngineResult:parse:AsyncJSCalls:finalize",
+        "duration": 16.42,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42774.02,
+        "name": "lh:computed:TraceEngineResult:parse:DOMStats:finalize",
+        "duration": 3.22,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42777.33,
+        "name": "lh:computed:TraceEngineResult:parse:UserTimings:finalize",
+        "duration": 2.04,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42779.43,
+        "name": "lh:computed:TraceEngineResult:parse:ExtensionTraceData:finalize",
+        "duration": 16.14,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42795.65,
+        "name": "lh:computed:TraceEngineResult:parse:LayerTree:finalize",
+        "duration": 13.08,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42808.82,
+        "name": "lh:computed:TraceEngineResult:parse:Frames:finalize",
+        "duration": 47.47,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42856.35,
+        "name": "lh:computed:TraceEngineResult:parse:GPU:finalize",
+        "duration": 2.51,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42858.96,
+        "name": "lh:computed:TraceEngineResult:parse:ImagePainting:finalize",
+        "duration": 16.14,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42875.17,
+        "name": "lh:computed:TraceEngineResult:parse:Initiators:finalize",
+        "duration": 16.36,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42891.62,
+        "name": "lh:computed:TraceEngineResult:parse:Invalidations:finalize",
+        "duration": 14.32,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42906.01,
+        "name": "lh:computed:TraceEngineResult:parse:PageLoadMetrics:finalize",
+        "duration": 17.53,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42923.63,
+        "name": "lh:computed:TraceEngineResult:parse:LargestImagePaint:finalize",
+        "duration": 6.41,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42930.12,
+        "name": "lh:computed:TraceEngineResult:parse:LargestTextPaint:finalize",
+        "duration": 14.33,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 42944.65,
+        "name": "lh:computed:TraceEngineResult:parse:Screenshots:finalize",
+        "duration": 307.99,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43252.69,
+        "name": "lh:computed:TraceEngineResult:parse:LayoutShifts:finalize",
+        "duration": 19.57,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43272.31,
+        "name": "lh:computed:TraceEngineResult:parse:Memory:finalize",
+        "duration": 10.37,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43282.76,
+        "name": "lh:computed:TraceEngineResult:parse:PageFrames:finalize",
+        "duration": 16.35,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43299.22,
+        "name": "lh:computed:TraceEngineResult:parse:Scripts:finalize",
+        "duration": 14.21,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43313.92,
+        "name": "lh:computed:TraceEngineResult:parse:SelectorStats:finalize",
+        "duration": 14.8,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43328.89,
+        "name": "lh:computed:TraceEngineResult:parse:UserInteractions:finalize",
+        "duration": 17.57,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43346.53,
+        "name": "lh:computed:TraceEngineResult:parse:Workers:finalize",
+        "duration": 0.2,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43346.77,
+        "name": "lh:computed:TraceEngineResult:parse:Warnings:finalize",
+        "duration": 14.77,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43361.77,
+        "name": "lh:computed:TraceEngineResult:parse:handler.data()",
+        "duration": 2.79,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43364.73,
+        "name": "lh:computed:TraceEngineResult:insights",
+        "duration": 748.21,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43365.69,
+        "name": "lh:computed:TraceEngineResult:insights:CLSCulprits",
+        "duration": 2.59,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43368.33,
+        "name": "lh:computed:TraceEngineResult:insights:Cache",
+        "duration": 1.02,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43369.54,
+        "name": "lh:computed:TraceEngineResult:insights:CharacterSet",
+        "duration": 0.61,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43370.18,
+        "name": "lh:computed:TraceEngineResult:insights:DOMSize",
+        "duration": 0.93,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43371.14,
+        "name": "lh:computed:TraceEngineResult:insights:DocumentLatency",
+        "duration": 0.34,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43371.49,
+        "name": "lh:computed:TraceEngineResult:insights:DuplicatedJavaScript",
+        "duration": 1.76,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43373.29,
+        "name": "lh:computed:TraceEngineResult:insights:FontDisplay",
+        "duration": 0.59,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43373.92,
+        "name": "lh:computed:TraceEngineResult:insights:ForcedReflow",
+        "duration": 1.21,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43375.16,
+        "name": "lh:computed:TraceEngineResult:insights:INPBreakdown",
+        "duration": 0.42,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43375.62,
+        "name": "lh:computed:TraceEngineResult:insights:ImageDelivery",
+        "duration": 1.24,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43376.88,
+        "name": "lh:computed:TraceEngineResult:insights:LCPBreakdown",
+        "duration": 0.29,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43377.19,
+        "name": "lh:computed:TraceEngineResult:insights:LCPDiscovery",
+        "duration": 0.42,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43377.64,
+        "name": "lh:computed:TraceEngineResult:insights:LegacyJavaScript",
+        "duration": 0.62,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43378.28,
+        "name": "lh:computed:TraceEngineResult:insights:ModernHTTP",
+        "duration": 0.75,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43379.07,
+        "name": "lh:computed:TraceEngineResult:insights:NetworkDependencyTree",
+        "duration": 0.39,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43379.54,
+        "name": "lh:computed:TraceEngineResult:insights:RenderBlocking",
+        "duration": 0.7,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43380.29,
+        "name": "lh:computed:TraceEngineResult:insights:SlowCSSSelector",
+        "duration": 1.28,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43381.61,
+        "name": "lh:computed:TraceEngineResult:insights:ThirdParties",
+        "duration": 27.56,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43409.26,
+        "name": "lh:computed:TraceEngineResult:insights:Viewport",
+        "duration": 3.03,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43412.6,
+        "name": "lh:computed:TraceEngineResult:insights:createLanternContext",
+        "duration": 347.22,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43759.92,
+        "name": "lh:computed:TraceEngineResult:insights:CLSCulprits",
+        "duration": 5.55,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43765.52,
+        "name": "lh:computed:TraceEngineResult:insights:Cache",
+        "duration": 1.3,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43766.86,
+        "name": "lh:computed:TraceEngineResult:insights:CharacterSet",
+        "duration": 0.65,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43767.56,
+        "name": "lh:computed:TraceEngineResult:insights:DOMSize",
+        "duration": 0.61,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43768.2,
+        "name": "lh:computed:TraceEngineResult:insights:DocumentLatency",
+        "duration": 0.74,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43768.97,
+        "name": "lh:computed:TraceEngineResult:insights:DuplicatedJavaScript",
+        "duration": 0.53,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43769.52,
+        "name": "lh:computed:TraceEngineResult:insights:FontDisplay",
+        "duration": 0.19,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43769.73,
+        "name": "lh:computed:TraceEngineResult:insights:ForcedReflow",
+        "duration": 1.36,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43771.11,
+        "name": "lh:computed:TraceEngineResult:insights:INPBreakdown",
+        "duration": 0.13,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43771.27,
+        "name": "lh:computed:TraceEngineResult:insights:ImageDelivery",
+        "duration": 0.17,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43771.46,
+        "name": "lh:computed:TraceEngineResult:insights:LCPBreakdown",
+        "duration": 0.68,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43772.18,
+        "name": "lh:computed:TraceEngineResult:insights:LCPDiscovery",
+        "duration": 0.18,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43772.39,
+        "name": "lh:computed:TraceEngineResult:insights:LegacyJavaScript",
+        "duration": 21.34,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43793.77,
+        "name": "lh:computed:TraceEngineResult:insights:ModernHTTP",
+        "duration": 4.14,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43797.95,
+        "name": "lh:computed:TraceEngineResult:insights:NetworkDependencyTree",
+        "duration": 3.89,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43801.89,
+        "name": "lh:computed:TraceEngineResult:insights:RenderBlocking",
+        "duration": 0.69,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43802.6,
+        "name": "lh:computed:TraceEngineResult:insights:SlowCSSSelector",
+        "duration": 0.07,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 43802.68,
+        "name": "lh:computed:TraceEngineResult:insights:ThirdParties",
+        "duration": 306.5,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44109.23,
+        "name": "lh:computed:TraceEngineResult:insights:Viewport",
+        "duration": 1.53,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44158.46,
+        "name": "lh:computed:TimeToFirstByte",
+        "duration": 0.73,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44161.4,
+        "name": "lh:runner:generate",
+        "duration": 0.76,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 44163.1,
+        "name": "lh:computed:EntityClassification",
+        "duration": 3.14,
+        "entryType": "measure"
+      }
+    ],
+    "total": 33704.29
+  },
+  "i18n": {
+    "rendererFormattedStrings": {
+      "calculatorLink": "See calculator.",
+      "collapseView": "Collapse view",
+      "crcInitialNavigation": "Initial Navigation",
+      "crcLongestDurationLabel": "Maximum critical path latency:",
+      "dropdownCopyJSON": "Copy JSON",
+      "dropdownDarkTheme": "Toggle Dark Theme",
+      "dropdownPrintExpanded": "Print Expanded",
+      "dropdownPrintSummary": "Print Summary",
+      "dropdownSaveGist": "Save as Gist",
+      "dropdownSaveHTML": "Save as HTML",
+      "dropdownSaveJSON": "Save as JSON",
+      "dropdownViewUnthrottledTrace": "View Unthrottled Trace",
+      "dropdownViewer": "Open in Viewer",
+      "errorLabel": "Error!",
+      "errorMissingAuditInfo": "Report error: no audit information",
+      "expandView": "Expand view",
+      "firstPartyChipLabel": "1st party",
+      "footerIssue": "File an issue",
+      "hide": "Hide",
+      "labDataTitle": "Lab Data",
+      "lsPerformanceCategoryDescription": "[Lighthouse](https://developers.google.com/web/tools/lighthouse/) analysis of the current page on an emulated mobile network. Values are estimated and may vary.",
+      "manualAuditsGroupTitle": "Additional items to manually check",
+      "notApplicableAuditsGroupTitle": "Not applicable",
+      "openInANewTabTooltip": "Open in a new tab",
+      "opportunityResourceColumnLabel": "Opportunity",
+      "opportunitySavingsColumnLabel": "Estimated Savings",
+      "passedAuditsGroupTitle": "Passed audits",
+      "runtimeAnalysisWindow": "Initial page load",
+      "runtimeAnalysisWindowSnapshot": "Point-in-time snapshot",
+      "runtimeAnalysisWindowTimespan": "User interactions timespan",
+      "runtimeCustom": "Custom throttling",
+      "runtimeDesktopEmulation": "Emulated Desktop",
+      "runtimeMobileEmulation": "Emulated Moto G Power",
+      "runtimeNoEmulation": "No emulation",
+      "runtimeSettingsAxeVersion": "Axe version",
+      "runtimeSettingsBenchmark": "Unthrottled CPU/Memory Power",
+      "runtimeSettingsCPUThrottling": "CPU throttling",
+      "runtimeSettingsDevice": "Device",
+      "runtimeSettingsNetworkThrottling": "Network throttling",
+      "runtimeSettingsScreenEmulation": "Screen emulation",
+      "runtimeSettingsUANetwork": "User agent (network)",
+      "runtimeSingleLoad": "Single page session",
+      "runtimeSingleLoadTooltip": "This data is taken from a single page session, as opposed to field data summarizing many sessions.",
+      "runtimeSlow4g": "Slow 4G throttling",
+      "runtimeUnknown": "Unknown",
+      "show": "Show",
+      "showRelevantAudits": "Show audits relevant to:",
+      "snippetCollapseButtonLabel": "Collapse snippet",
+      "snippetExpandButtonLabel": "Expand snippet",
+      "thirdPartyResourcesLabel": "Show 3rd-party resources",
+      "throttlingProvided": "Provided by environment",
+      "toplevelWarningsMessage": "There were issues affecting this run of Lighthouse:",
+      "unattributable": "Unattributable",
+      "unscoredLabel": "Unscored",
+      "unscoredTitle": "This audit does not contribute to the overall category score.",
+      "varianceDisclaimer": "Values are estimated and may vary. The [performance score is calculated](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/) directly from these metrics.",
+      "viewTraceLabel": "View Trace",
+      "viewTreemapLabel": "View Treemap",
+      "warningAuditsGroupTitle": "Passed audits but with warnings",
+      "warningHeader": "Warnings: "
+    },
+    "icuMessagePaths": {
+      "core/config/default-config.js | performanceCategoryTitle": [
+        "categories.performance.title"
+      ],
+      "core/config/default-config.js | metricGroupTitle": [
+        "categoryGroups.metrics.title"
+      ],
+      "core/config/default-config.js | insightsGroupTitle": [
+        "categoryGroups.insights.title"
+      ],
+      "core/config/default-config.js | insightsGroupDescription": [
+        "categoryGroups.insights.description"
+      ],
+      "core/config/default-config.js | diagnosticsGroupTitle": [
+        "categoryGroups.diagnostics.title"
+      ],
+      "core/config/default-config.js | diagnosticsGroupDescription": [
+        "categoryGroups.diagnostics.description"
+      ],
+      "core/config/default-config.js | a11yBestPracticesGroupTitle": [
+        "categoryGroups[a11y-best-practices].title"
+      ],
+      "core/config/default-config.js | a11yBestPracticesGroupDescription": [
+        "categoryGroups[a11y-best-practices].description"
+      ],
+      "core/config/default-config.js | a11yColorContrastGroupTitle": [
+        "categoryGroups[a11y-color-contrast].title"
+      ],
+      "core/config/default-config.js | a11yColorContrastGroupDescription": [
+        "categoryGroups[a11y-color-contrast].description"
+      ],
+      "core/config/default-config.js | a11yNamesLabelsGroupTitle": [
+        "categoryGroups[a11y-names-labels].title"
+      ],
+      "core/config/default-config.js | a11yNamesLabelsGroupDescription": [
+        "categoryGroups[a11y-names-labels].description"
+      ],
+      "core/config/default-config.js | a11yNavigationGroupTitle": [
+        "categoryGroups[a11y-navigation].title"
+      ],
+      "core/config/default-config.js | a11yNavigationGroupDescription": [
+        "categoryGroups[a11y-navigation].description"
+      ],
+      "core/config/default-config.js | a11yAriaGroupTitle": [
+        "categoryGroups[a11y-aria].title"
+      ],
+      "core/config/default-config.js | a11yAriaGroupDescription": [
+        "categoryGroups[a11y-aria].description"
+      ],
+      "core/config/default-config.js | a11yLanguageGroupTitle": [
+        "categoryGroups[a11y-language].title"
+      ],
+      "core/config/default-config.js | a11yLanguageGroupDescription": [
+        "categoryGroups[a11y-language].description"
+      ],
+      "core/config/default-config.js | a11yAudioVideoGroupTitle": [
+        "categoryGroups[a11y-audio-video].title"
+      ],
+      "core/config/default-config.js | a11yAudioVideoGroupDescription": [
+        "categoryGroups[a11y-audio-video].description"
+      ],
+      "core/config/default-config.js | a11yTablesListsVideoGroupTitle": [
+        "categoryGroups[a11y-tables-lists].title"
+      ],
+      "core/config/default-config.js | a11yTablesListsVideoGroupDescription": [
+        "categoryGroups[a11y-tables-lists].description"
+      ],
+      "core/config/default-config.js | seoMobileGroupTitle": [
+        "categoryGroups[seo-mobile].title"
+      ],
+      "core/config/default-config.js | seoMobileGroupDescription": [
+        "categoryGroups[seo-mobile].description"
+      ],
+      "core/config/default-config.js | seoContentGroupTitle": [
+        "categoryGroups[seo-content].title"
+      ],
+      "core/config/default-config.js | seoContentGroupDescription": [
+        "categoryGroups[seo-content].description"
+      ],
+      "core/config/default-config.js | seoCrawlingGroupTitle": [
+        "categoryGroups[seo-crawl].title"
+      ],
+      "core/config/default-config.js | seoCrawlingGroupDescription": [
+        "categoryGroups[seo-crawl].description"
+      ],
+      "core/config/default-config.js | bestPracticesTrustSafetyGroupTitle": [
+        "categoryGroups[best-practices-trust-safety].title"
+      ],
+      "core/config/default-config.js | bestPracticesUXGroupTitle": [
+        "categoryGroups[best-practices-ux].title"
+      ],
+      "core/config/default-config.js | bestPracticesBrowserCompatGroupTitle": [
+        "categoryGroups[best-practices-browser-compat].title"
+      ],
+      "core/config/default-config.js | bestPracticesGeneralGroupTitle": [
+        "categoryGroups[best-practices-general].title"
+      ],
+      "core/config/default-config.js | webmcpGroupTitle": [
+        "categoryGroups.webmcp.title"
+      ],
+      "core/config/default-config.js | webmcpGroupDescription": [
+        "categoryGroups.webmcp.description"
+      ],
+      "core/config/default-config.js | agentAccessibilityGroupTitle": [
+        "categoryGroups[agent-accessibility].title"
+      ],
+      "core/config/default-config.js | agentAccessibilityGroupDescription": [
+        "categoryGroups[agent-accessibility].description"
+      ],
+      "core/config/default-config.js | agentDiscoverabilityGroupTitle": [
+        "categoryGroups[agent-discoverability].title"
+      ],
+      "core/config/default-config.js | agentDiscoverabilityGroupDescription": [
+        "categoryGroups[agent-discoverability].description"
+      ]
+    }
+  }
+}

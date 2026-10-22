@@ -1,0 +1,2197 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tocloft}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{tikz}
+
+% ============================================================================
+% CONFIGURATION
+% ============================================================================
+\geometry{
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2.5cm
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black,
+    pdfauthor={Mouad El Abbassi},
+    pdftitle={MouadVision - Plateforme de Gestion et Analyse de Ventes},
+    pdfsubject={Mini Projet JEE 2025}
+}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MouadVision}
+\fancyhead[R]{\small Mini Projet JEE 2025}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Chapter formatting
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-20pt}{40pt}
+
+% Line spacing
+\onehalfspacing
+
+% ============================================================================
+% DOCUMENT
+% ============================================================================
+\begin{document}
+
+% ============================================================================
+% PAGE DE GARDE
+% ============================================================================
+\begin{titlepage}
+    \centering
+    
+    \vspace*{0.5cm}
+    
+    {\Large \textbf{Université Sultan Moulay Slimane}}\\[0.3cm]
+    {\large École Nationale des Sciences Appliquées de Khouribga}\\[0.2cm]
+    {\normalsize Département : Mathématiques \& Informatique}\\[0.2cm]
+    {\normalsize Filière : IID2}\\[0.2cm]
+    {\normalsize Module : JEE}\\[1.5cm]
+    
+    \rule{\linewidth}{0.5mm}\\[0.5cm]
+    {\Huge \textbf{MouadVision}}\\[0.3cm]
+    {\Large \textbf{Plateforme de Gestion et Analyse de Ventes}}\\[0.3cm]
+    {\large Mini Projet JEE 2025}\\[0.2cm]
+    \rule{\linewidth}{0.5mm}\\[1cm]
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{1.png}
+        \caption{MouadVision}
+    \end{figure}
+    \vspace{0.5cm}
+    
+\centering
+        \large
+        \textbf{Réalisé par :}\\[0.2cm]
+        Mouad El Abbassi\\[0.5cm]
+        \textbf{Encadré par :}\\[0.2cm]
+        Professeur Noreddine Gherabi\\[1cm]
+    
+    \vfill
+    
+    {\large Année Universitaire 2025-2026}
+    
+\end{titlepage}
+
+% ============================================================================
+% TABLE DES MATIÈRES
+% ============================================================================
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+\listoftables
+\newpage
+
+% ============================================================================
+% INTRODUCTION
+% ============================================================================
+\chapter{Introduction}
+
+\section{Contexte du Projet}
+
+Dans le cadre du module JEE (Java Enterprise Edition) dispensé à l'École Nationale des Sciences Appliquées de Khouribga, ce projet vise à développer une application web complète pour la gestion et l'analyse des ventes. La plateforme MouadVision offre aux acheteurs, vendeurs et analystes une vision claire et data-driven de l'écosystème des best-sellers.
+
+Ce projet répond au besoin crucial de comprendre quels produits performent, à quels prix, et avec quelles caractéristiques. Il s'agit d'une démonstration de compétences full-stack intégrant le développement backend avec Spring Boot, le frontend avec React TypeScript, l'analyse de données et le Machine Learning avec Python.
+
+\section{Objectifs du Projet}
+
+Les objectifs principaux de ce projet sont :
+
+\begin{itemize}[noitemsep]
+    \item Gestion complète des produits, ventes et stocks (CRUD)
+    \item Analyse des performances commerciales
+    \item Visualisation des tendances de vente
+    \item Prédiction des ventes futures avec des modèles de Machine Learning
+    \item Système multi-rôles avec contrôle d'accès
+\end{itemize}
+
+\section{Architecture Technique}
+
+MouadVision repose sur une architecture microservices moderne composée de :
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Backend} : Spring Boot 3.2.1 avec Java 21
+    \item \textbf{Frontend} : React 18 avec TypeScript et Tailwind CSS
+    \item \textbf{Base de données} : MySQL 8.0
+    \item \textbf{Service ML} : Python avec FastAPI
+\end{itemize}
+
+% ============================================================================
+% CHAPITRE 2 : PRÉPARATION DES DONNÉES
+% ============================================================================
+\chapter{Préparation des Données}
+
+\section{Dataset Initial}
+
+Le point de départ de ce projet est un fichier CSV fourni par notre professeur Nouredine Gherabi, représentant les ventes des produits Amazon au cours du mois de Juin 2021. Ce dataset initial contenait \textbf{708 lignes} de données brutes.
+
+\section{Nettoyage et Prétraitement}
+
+\subsection{Étape 1 : Analyse Initiale}
+
+L'analyse initiale du dataset a révélé plusieurs problèmes à traiter :
+
+\begin{itemize}[noitemsep]
+    \item Valeurs manquantes dans certaines colonnes
+    \item Doublons potentiels à identifier
+    \item Types de données à normaliser
+    \item Incohérences dans les formats
+\end{itemize}
+
+\subsection{Étape 2 : Nettoyage des Données}
+
+Après un processus rigoureux de nettoyage incluant :
+
+\begin{itemize}[noitemsep]
+    \item Suppression des lignes avec des valeurs critiques manquantes
+    \item Élimination des doublons
+    \item Normalisation des types de données
+\end{itemize}
+
+Le dataset nettoyé contient \textbf{655 lignes} exploitables.
+
+\section{Feature Engineering avec Web Scraping}
+
+\subsection{Enrichissement des Données}
+
+Pour améliorer la qualité et la richesse des données, une étape de feature engineering a été réalisée en utilisant une API de ScrapperAPI pour scraping les produit existant dans  Amazon site web. Cette étape a permis d'ajouter trois nouvelles colonnes essentielles :
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{product\_name} : Nom complet et détaillé du produit
+    \item \textbf{description} : Description textuelle du produit
+    \item \textbf{image\_url} : URL de l'image réelle du produit sur Amazon
+\end{enumerate}
+
+\subsection{Résultat Final}
+
+Lors du scraping, certains produits n'étaient plus disponibles sur Amazon (liens expirés ou produits retirés). Sur les 655 produits :
+
+\begin{itemize}[noitemsep]
+    \item \textbf{513 produits} ont été enrichis avec succès
+    \item \textbf{142 produits} avaient des liens indisponibles et ont été exclus
+\end{itemize}
+
+Le dataset final prêt pour l'insertion en base de données contient donc \textbf{513 produits} avec des informations complètes et à jour.
+
+\begin{table}[H]
+    \centering
+    \caption{Évolution du Dataset}
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Étape} & \textbf{Nombre de lignes} \\
+        \midrule
+        Dataset initial (CSV brut) & 708 \\
+        Après nettoyage & 655 \\
+        Après scraping (liens valides) & 513 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:dataset_evolution}
+\end{table}
+
+% ============================================================================
+% CHAPITRE 3 : STRUCTURE DE LA BASE DE DONNÉES
+% ============================================================================
+\chapter{Architecture des Données}
+
+\section{Introduction}
+
+L'architecture des données de MouadVision suit une approche en trois niveaux : un modèle conceptuel orienté objet définissant les entités métier principales, un mapping objet-relationnel réalisé avec Spring Boot JPA, et des extensions techniques pour les fonctionnalités avancées d'analyse et de machine learning. Cette organisation garantit à la fois la clarté conceptuelle et l'efficacité opérationnelle.
+
+\section{Modèle Conceptuel du Domaine}
+
+\subsection{Vue d'Ensemble}
+
+Le modèle du domaine représente les entités métier fondamentales de la plateforme MouadVision et leurs relations. Ce modèle constitue le cœur de l'architecture logicielle et guide l'implémentation technique.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{enum.png}
+    \caption{Package des Enumeration pour le Diagramme de Classe}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Class Diagram.jpg}
+    \caption{Diagramme de classes du MouadVision}
+    \label{fig:class_diagram}
+\end{figure}
+
+\subsection{Entités Métier Principales}
+
+Le modèle conceptuel comprend \textbf{11 entités métier principales} organisées en quatre domaines fonctionnels :
+
+\subsubsection{Domaine Utilisateur}
+
+\textbf{User} : Représente tous les utilisateurs de la plateforme avec leurs rôles (BUYER, SELLER, ANALYST, ADMIN). Cette classe centrale gère l'authentification, les profils, et les informations spécifiques aux vendeurs (nom de boutique, vérification, etc.).
+
+\subsubsection{Domaine Catalogue}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Product} : Entité centrale représentant les produits disponibles sur la plateforme, identifiés par leur ASIN (Amazon Standard Identification Number).
+    \item \textbf{Category} : Organisation hiérarchique des produits par catégories.
+\end{itemize}
+
+\subsubsection{Domaine Commande}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Order} : Commandes passées par les acheteurs, avec gestion du cycle de vie (PENDING, CONFIRMED, DELIVERED, CANCELLED).
+    \item \textbf{OrderItem} : Lignes de commande détaillant les produits, quantités et prix au moment de l'achat.
+\end{itemize}
+
+\subsubsection{Domaine Gestion et Analyse}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{SellerRevenue} : Suivi des revenus des vendeurs avec calcul automatique de la commission plateforme (10\%).
+    \item \textbf{PlatformRevenue} : Revenus de la plateforme (ventes directes et commissions).
+    \item \textbf{SellerStock} : Gestion du stock des vendeurs.
+    \item \textbf{SellerProductRequest} : Workflow d'approbation des nouveaux produits soumis par les vendeurs.
+    \item \textbf{ProductReview} : Avis et notes laissés par les acheteurs.
+    \item \textbf{Notification} : Système de notifications temps réel.
+\end{itemize}
+
+\subsection{Relations Principales}
+
+Le modèle définit les relations suivantes :
+
+\begin{itemize}[noitemsep]
+    \item User (Seller) ──→ Product : Un vendeur peut gérer plusieurs produits
+    \item Product ──→ Category : Chaque produit appartient à une catégorie
+    \item User (Buyer) ──→ Order : Un acheteur peut passer plusieurs commandes
+    \item Order ──→ OrderItem : Une commande contient plusieurs articles
+    \item OrderItem ──→ Product : Chaque article référence un produit
+    \item Product ──→ ProductReview : Un produit peut avoir plusieurs avis
+    \item User ──→ Notification : Un utilisateur reçoit plusieurs notifications
+\end{itemize}
+
+\section{Mapping Objet-Relationnel (JPA)}
+
+\subsection{Principe de Transformation}
+
+Le modèle conceptuel est transformé en schéma relationnel MySQL via Spring Boot JPA. Chaque entité devient une table, et les relations sont matérialisées par des clés étrangères. Les annotations JPA (\texttt{@Entity}, \texttt{@Table}, \texttt{@Column}, \texttt{@ManyToOne}, \texttt{@OneToMany}) assurent ce mapping automatique.
+
+\subsection{Stratégies d'Implémentation}
+
+\subsubsection{Gestion des Identifiants}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Identifiants auto-incrémentés} : Pour la plupart des entités (User, Order, Category, etc.)
+    \item \textbf{Identifiant métier} : Product utilise l'ASIN comme clé primaire naturelle
+\end{itemize}
+
+\subsubsection{Auditing Automatique}
+
+Toutes les entités principales héritent de mécanismes d'audit JPA pour tracer automatiquement :
+\begin{itemize}[noitemsep]
+    \item \texttt{created\_at} : Date de création
+    \item \texttt{updated\_at} : Date de dernière modification
+\end{itemize}
+
+\subsubsection{Énumérations}
+
+Les énumérations Java (Role, OrderStatus, ApprovalStatus, etc.) sont mappées en colonnes \texttt{ENUM} MySQL ou \texttt{VARCHAR} selon les besoins.
+
+\section{Extensions Techniques et Analytiques}
+
+\subsection{Vue d'Ensemble}
+
+Au-delà du modèle de domaine principal, l'implémentation technique comprend des tables additionnelles pour les fonctionnalités avancées de machine learning et d'analyse prédictive. Ces tables enrichissent les entités du domaine sans en faire partie conceptuellement.
+
+\subsection{Domaine d'Analyse Prédictive}
+
+Trois entités techniques supportent les capacités prédictives de la plateforme :
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{image.png}
+    \caption{Trois Nouvelles Tables de Predection}
+\end{figure}
+
+\subsubsection{BestsellerPrediction}
+
+Prédit la probabilité qu'un produit devienne un bestseller en analysant :
+\begin{itemize}[noitemsep]
+    \item Les tendances de vente historiques
+    \item La vélocité des ventes
+    \item La croissance du nombre d'avis
+    \item Les métriques d'engagement (likes, reviews)
+\end{itemize}
+
+Le modèle XGBoost génère un score de probabilité et une recommandation d'action pour les vendeurs.
+
+\subsubsection{RankingTrendPrediction}
+
+Analyse l'évolution du classement d'un produit pour prédire sa tendance :
+\begin{itemize}[noitemsep]
+    \item \textbf{IMPROVING} : Classement en amélioration
+    \item \textbf{STABLE} : Classement stable
+    \item \textbf{DECLINING} : Classement en baisse
+\end{itemize}
+
+Les algorithmes Random Forest et Gradient Boosting évaluent les facteurs influençant le ranking.
+
+\subsubsection{PriceIntelligence}
+
+Recommande un prix optimal en analysant :
+\begin{itemize}[noitemsep]
+    \item Les prix de la catégorie (moyenne, min, max)
+    \item La position concurrentielle souhaitée
+    \item L'élasticité-prix estimée
+\end{itemize}
+
+Le système suggère des ajustements de prix.
+
+\subsection{Relation avec le Domaine Principal}
+
+Ces entités techniques :
+\begin{itemize}[noitemsep]
+    \item Sont générées automatiquement par les services ML Python (FastAPI)
+    \item Référencent les produits via leur ASIN
+    \item Ne modifient pas les entités du domaine principal
+    \item Sont accessibles via des repositories JPA dédiés
+    \item S'affichent dans les dashboards Seller et Analyst
+\end{itemize}
+
+\section{Schéma Relationnel Complet}
+
+\subsection{Vue d'Ensemble}
+
+La base de données MySQL de MouadVision comprend \textbf{14 tables} organisées en quatre catégories :
+
+\begin{table}[H]
+    \centering
+    \caption{Organisation des tables par domaine}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Domaine} & \textbf{Tables} \\
+        \midrule
+        Domaine Métier (11) & users, categories, products, orders, order\_items, \\
+                           & seller\_revenues, platform\_revenue, seller\_stock, \\
+                           & seller\_product\_requests, product\_reviews, notifications \\
+        \midrule
+        Analyse ML (3) & bestseller\_predictions, ranking\_trend\_predictions, \\
+                       & price\_intelligence \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:tables_overview}
+\end{table}
+
+\subsection{Tables du Domaine Métier}
+
+Les sections suivantes détaillent la structure complète de chaque table du domaine métier principal.
+
+\subsubsection{Table : users}
+
+La table \texttt{users} gère tous les utilisateurs de la plateforme avec leurs différents rôles.
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table users}
+    \small
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        id & BIGINT & Identifiant unique (PK) & NON \\
+        email & VARCHAR(255) & Email unique de l'utilisateur & NON \\
+        password & VARCHAR(255) & Mot de passe hashé & NON \\
+        full\_name & VARCHAR(255) & Nom complet & OUI \\
+        phone & VARCHAR(20) & Numéro de téléphone & OUI \\
+        bio & VARCHAR(500) & Biographie & OUI \\
+        profile\_image & VARCHAR(500) & URL de l'image de profil & OUI \\
+        role & ENUM & BUYER, SELLER, ANALYST, ADMIN & NON \\
+        security\_question & VARCHAR(500) & Question de sécurité & OUI \\
+        security\_answer & VARCHAR(255) & Réponse hashée & OUI \\
+        is\_active & BIT & Compte actif ou non & OUI \\
+        store\_name & VARCHAR(255) & Nom de la boutique (vendeur) & OUI \\
+        store\_description & VARCHAR(1000) & Description boutique & OUI \\
+        business\_address & VARCHAR(500) & Adresse commerciale & OUI \\
+        is\_verified\_seller & BIT & Vendeur vérifié & OUI \\
+        seller\_rating & DOUBLE & Note moyenne du vendeur & OUI \\
+        created\_at & DATETIME & Date de création & OUI \\
+        updated\_at & DATETIME & Date de mise à jour & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:users}
+\end{table}
+
+\textbf{Note de conception} : La table \texttt{users} implémente un pattern de \textit{Single Table Inheritance} où tous les types d'utilisateurs partagent la même table. Les colonnes spécifiques aux vendeurs (\texttt{store\_name}, \texttt{is\_verified\_seller}, etc.) restent NULL pour les autres rôles.
+
+\subsubsection{Table : categories}
+
+Gestion des catégories de produits.
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table categories}
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        id & BIGINT & Identifiant unique (PK) & NON \\
+        name & VARCHAR(255) & Nom de la catégorie & NON \\
+        description & TEXT & Description de la catégorie & OUI \\
+        product\_count & INT & Nombre de produits (calculé) & OUI \\
+        created\_at & DATETIME & Date de création & OUI \\
+        updated\_at & DATETIME & Date de mise à jour & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:categories}
+\end{table}
+
+\subsubsection{Table : products}
+
+Table centrale contenant tous les produits de la plateforme.
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table products}
+    \small
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        asin & VARCHAR(20) & Amazon Standard ID (PK) & NON \\
+        product\_name & VARCHAR(500) & Nom du produit & NON \\
+        description & TEXT & Description détaillée & OUI \\
+        price & DECIMAL(10,2) & Prix du produit & OUI \\
+        rating & DECIMAL(2,1) & Note moyenne (1-5) & OUI \\
+        reviews\_count & INT & Nombre d'avis & OUI \\
+        ranking & INT & Classement du produit & OUI \\
+        no\_of\_sellers & INT & Nombre de vendeurs & OUI \\
+        product\_link & TEXT & Lien Amazon & OUI \\
+        image\_url & TEXT & URL de l'image & OUI \\
+        is\_bestseller & BIT & Est un bestseller & OUI \\
+        sales\_count & INT & Nombre de ventes & OUI \\
+        stock\_quantity & INT & Quantité en stock & OUI \\
+        likes\_count & INT & Nombre de likes & OUI \\
+        dislikes\_count & INT & Nombre de dislikes & OUI \\
+        category\_id & BIGINT & Clé étrangère vers categories & OUI \\
+        seller\_id & BIGINT & Clé étrangère vers users & OUI \\
+        approval\_status & ENUM & PENDING, APPROVED, REJECTED & OUI \\
+        approved\_by & BIGINT & Admin ayant approuvé & OUI \\
+        approved\_at & DATETIME & Date d'approbation & OUI \\
+        discount\_percentage & DOUBLE & Pourcentage de remise & OUI \\
+        days\_since\_listed & INT & Jours depuis mise en ligne & OUI \\
+        created\_at & DATETIME & Date de création & OUI \\
+        updated\_at & DATETIME & Date de mise à jour & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:products}
+\end{table}
+
+\textbf{Relations} :
+\begin{itemize}[noitemsep]
+    \item \texttt{category\_id} → \texttt{categories(id)} : Relation Many-to-One
+    \item \texttt{seller\_id} → \texttt{users(id)} : Relation Many-to-One
+    \item \texttt{approved\_by} → \texttt{users(id)} : Relation Many-to-One (Admin)
+\end{itemize}
+
+\subsubsection{Table : orders}
+
+Gestion des commandes passées par les acheteurs.
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table orders}
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        id & BIGINT & Identifiant unique (PK) & NON \\
+        user\_id & BIGINT & Clé étrangère vers users & NON \\
+        order\_number & VARCHAR(50) & Numéro de commande unique & NON \\
+        total\_amount & DECIMAL(12,2) & Montant total & NON \\
+        total\_items & INT & Nombre total d'articles & NON \\
+        status & ENUM & PENDING, CONFIRMED, DELIVERED, CANCELLED & NON \\
+        notes & VARCHAR(500) & Notes de la commande & OUI \\
+        payment\_completed & BIT & Paiement effectué & OUI \\
+        payment\_completed\_at & DATETIME & Date du paiement & OUI \\
+        order\_date & DATETIME & Date de la commande & OUI \\
+        confirmed\_at & DATETIME & Date de confirmation & OUI \\
+        cancelled\_at & DATETIME & Date d'annulation & OUI \\
+        created\_at & DATETIME & Date de création & OUI \\
+        updated\_at & DATETIME & Date de mise à jour & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:orders}
+\end{table}
+
+\subsubsection{Table : order\_items}
+
+Détails des articles dans chaque commande.
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table order\_items}
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        id & BIGINT & Identifiant unique (PK) & NON \\
+        order\_id & BIGINT & Clé étrangère vers orders & NON \\
+        product\_asin & VARCHAR(20) & Clé étrangère vers products & NON \\
+        product\_name & VARCHAR(500) & Nom du produit (snapshot) & OUI \\
+        product\_image & TEXT & Image du produit (snapshot) & OUI \\
+        quantity & INT & Quantité commandée & NON \\
+        unit\_price & DECIMAL(10,2) & Prix unitaire & NON \\
+        subtotal & DECIMAL(10,2) & Sous-total & OUI \\
+        seller\_id & BIGINT & Vendeur du produit & OUI \\
+        seller\_name & VARCHAR(255) & Nom du vendeur (snapshot) & OUI \\
+        seller\_revenue\_calculated & BIT & Revenu vendeur calculé & OUI \\
+        is\_platform\_product & BIT & Produit plateforme & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:order_items}
+\end{table}
+
+\textbf{Note de conception} : Les champs \texttt{product\_name}, \texttt{product\_image}, et \texttt{seller\_name} sont des \textit{snapshots} qui préservent les valeurs au moment de la commande, même si le produit est modifié ultérieurement.
+
+\subsubsection{Table : seller\_revenues}
+
+Suivi des revenus des vendeurs avec calcul automatique des commissions.
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table seller\_revenues}
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        id & BIGINT & Identifiant unique (PK) & NON \\
+        seller\_id & BIGINT & Clé étrangère vers users & NON \\
+        order\_id & BIGINT & Clé étrangère vers orders & NON \\
+        order\_item\_id & BIGINT & Clé étrangère vers order\_items & NON \\
+        product\_asin & VARCHAR(20) & Produit vendu & NON \\
+        quantity\_sold & INT & Quantité vendue & NON \\
+        unit\_price & DECIMAL(10,2) & Prix unitaire & NON \\
+        gross\_amount & DECIMAL(12,2) & Montant brut & NON \\
+        platform\_fee\_percent & DECIMAL(5,2) & Pourcentage commission (10\%) & OUI \\
+        platform\_fee & DECIMAL(12,2) & Montant commission & OUI \\
+        net\_amount & DECIMAL(12,2) & Montant net pour vendeur & NON \\
+        revenue\_date & DATE & Date du revenu & NON \\
+        created\_at & DATETIME & Date de création & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:seller_revenues}
+\end{table}
+
+\textbf{Calcul automatique} : Le service \texttt{RevenueService} calcule automatiquement :
+\begin{itemize}[noitemsep]
+    \item \texttt{platform\_fee} = \texttt{gross\_amount} × 0.10
+    \item \texttt{net\_amount} = \texttt{gross\_amount} - \texttt{platform\_fee}
+\end{itemize}
+
+\subsubsection{Table : platform\_revenue}
+
+Revenus de la plateforme MouadVision (ventes directes et commissions).
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table platform\_revenue}
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        id & BIGINT & Identifiant unique (PK) & NON \\
+        order\_id & BIGINT & Clé étrangère vers orders & NON \\
+        order\_item\_id & BIGINT & Clé étrangère vers order\_items & OUI \\
+        product\_asin & VARCHAR(20) & Produit vendu & OUI \\
+        seller\_id & BIGINT & Vendeur (si commission) & OUI \\
+        revenue\_date & DATE & Date du revenu & NON \\
+        quantity\_sold & INT & Quantité vendue & OUI \\
+        unit\_price & DECIMAL(10,2) & Prix unitaire & OUI \\
+        gross\_amount & DECIMAL(12,2) & Montant & NON \\
+        revenue\_type & ENUM & DIRECT\_SALE ou COMMISSION & NON \\
+        description & VARCHAR(255) & Description & OUI \\
+        created\_at & TIMESTAMP & Date de création & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:platform_revenue}
+\end{table}
+
+\textbf{Types de revenus} :
+\begin{itemize}[noitemsep]
+    \item \texttt{DIRECT\_SALE} : Vente d'un produit propriété de MouadVision (\texttt{seller\_id} NULL)
+    \item \texttt{COMMISSION} : Commission sur vente d'un vendeur tiers (10\% du montant)
+\end{itemize}
+
+\subsubsection{Autres Tables du Domaine Métier}
+
+Les tables suivantes complètent le domaine métier :
+
+\begin{table}[H]
+    \centering
+    \caption{Tables complémentaires du domaine métier}
+    \begin{tabular}{lp{10cm}}
+        \toprule
+        \textbf{Table} & \textbf{Description} \\
+        \midrule
+        \texttt{notifications} & Système de notifications en temps réel (WebSocket). Contient le titre, message, type (PRODUCT\_APPROVED, NEW\_ORDER, etc.), statut de lecture, et horodatages. \\
+        \midrule
+        \texttt{product\_reviews} & Avis et notes (1-5 étoiles) laissés par les acheteurs sur les produits achetés. Référence l'utilisateur, le produit, et la commande. \\
+        \midrule
+        \texttt{seller\_product\_requests} & Workflow d'approbation des nouveaux produits soumis par les vendeurs. Statuts : PENDING, APPROVED, REJECTED. Contient les notes de l'admin et les raisons de rejet. \\
+        \midrule
+        \texttt{seller\_stock} & Gestion du stock des vendeurs. Suit la quantité disponible, le prix d'achat, la date d'acquisition, et le statut (IN\_STOCK, OUT\_OF\_STOCK, etc.). \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:other_domain_tables}
+\end{table}
+
+\subsection{Tables d'Analyse et Machine Learning}
+
+\subsubsection{Table : bestseller\_predictions}
+
+Stockage des prédictions de bestsellers potentiels.
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table bestseller\_predictions}
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        id & BIGINT & Identifiant unique (PK) & NON \\
+        product\_id & VARCHAR(20) & ASIN du produit & NON \\
+        asin & VARCHAR(20) & ASIN (alias) & OUI \\
+        predicted\_probability & DECIMAL(5,4) & Probabilité bestseller (0-1) & OUI \\
+        confidence\_level & ENUM & HIGH, MEDIUM, LOW & OUI \\
+        potential\_level & VARCHAR(50) & Niveau de potentiel & OUI \\
+        recommendation & TEXT & Recommandation textuelle & OUI \\
+        prediction\_date & DATETIME & Date de la prédiction & OUI \\
+        actual\_outcome & TINYINT & Résultat réel (vérification) & OUI \\
+        accuracy\_tracked & TINYINT & Précision suivie & OUI \\
+        created\_at & DATETIME & Date de création & OUI \\
+        updated\_at & DATETIME & Date de mise à jour & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:bestseller_predictions}
+\end{table}
+
+\textbf{Clé étrangère} : \texttt{product\_id} → \texttt{products(asin)}
+
+\textbf{Génération} : Ces enregistrements sont créés automatiquement par le service Python ML (XGBoost) et consommés par le \texttt{BestsellerPredictionRepository} Java.
+
+\subsubsection{Table : ranking\_trend\_predictions}
+
+Prédictions de tendance de classement des produits.
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table ranking\_trend\_predictions}
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        id & BIGINT & Identifiant unique (PK) & NON \\
+        product\_id & VARCHAR(20) & ASIN du produit & NON \\
+        current\_rank & INT & Classement actuel & OUI \\
+        predicted\_trend & ENUM & IMPROVING, STABLE, DECLINING & OUI \\
+        confidence\_score & DECIMAL(5,4) & Score de confiance & OUI \\
+        estimated\_change & INT & Changement estimé & OUI \\
+        predicted\_rank & INT & Classement prédit & OUI \\
+        recommendation & TEXT & Recommandation & OUI \\
+        is\_experimental & TINYINT & Marqué expérimental & OUI \\
+        prediction\_date & DATETIME & Date de prédiction & OUI \\
+        created\_at & DATETIME & Date de création & OUI \\
+        updated\_at & DATETIME & Date de mise à jour & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:ranking_trend_predictions}
+\end{table}
+
+\subsubsection{Table : price\_intelligence}
+
+Analyse et recommandations de prix optimaux.
+
+\begin{table}[H]
+    \centering
+    \caption{Structure de la table price\_intelligence}
+    \begin{tabularx}{\textwidth}{llXc}
+        \toprule
+        \textbf{Colonne} & \textbf{Type} & \textbf{Description} & \textbf{Nullable} \\
+        \midrule
+        id & BIGINT & Identifiant unique (PK) & NON \\
+        product\_id & VARCHAR(20) & ASIN du produit & NON \\
+        current\_price & DECIMAL(10,2) & Prix actuel & OUI \\
+        recommended\_price & DECIMAL(10,2) & Prix recommandé & OUI \\
+        price\_difference & DECIMAL(10,2) & Différence de prix & OUI \\
+        price\_change\_percentage & DECIMAL(5,2) & Changement en \% & OUI \\
+        price\_action & ENUM & AUGMENTER, MAINTENIR, DIMINUER & OUI \\
+        positioning & ENUM & PREMIUM, COMPETITIVE, BUDGET & OUI \\
+        category\_avg\_price & DECIMAL(10,2) & Prix moyen catégorie & OUI \\
+        category\_min\_price & DECIMAL(10,2) & Prix min catégorie & OUI \\
+        category\_max\_price & DECIMAL(10,2) & Prix max catégorie & OUI \\
+        analysis\_method & VARCHAR(50) & Méthode d'analyse & OUI \\
+        should\_notify\_seller & TINYINT & Notifier le vendeur & OUI \\
+        analysis\_date & DATETIME & Date d'analyse & OUI \\
+        created\_at & DATETIME & Date de création & OUI \\
+        updated\_at & DATETIME & Date de mise à jour & OUI \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:price_intelligence}
+\end{table}
+
+\textbf{Algorithme} : Analyse statistique des prix de la catégorie combinée à des règles métier pour recommander un prix optimal selon le positionnement désiré.
+
+\section{Diagramme Entité-Association (ERD)}
+
+\subsection{ERD Complet}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{erd.png}
+    \caption{Diagramme Entité-Association complet de la base de données MouadVision}
+\end{figure}
+
+Le diagramme ci-dessus illustre toutes les tables, leurs colonnes principales, et les relations (clés étrangères) entre elles.
+
+\subsection{Relations Principales}
+
+\begin{table}[H]
+    \centering
+    \caption{Relations clés entre tables}
+    \small
+    \begin{tabular}{lllp{5cm}}
+        \toprule
+        \textbf{Table Enfant} & \textbf{Colonne FK} & \textbf{Table Parent} & \textbf{Cardinalité} \\
+        \midrule
+        products & category\_id & categories & Many-to-One \\
+        products & seller\_id & users & Many-to-One \\
+        orders & user\_id & users & Many-to-One \\
+        order\_items & order\_id & orders & Many-to-One \\
+        order\_items & product\_asin & products & Many-to-One \\
+        seller\_revenues & seller\_id & users & Many-to-One \\
+        seller\_revenues & order\_id & orders & Many-to-One \\
+        platform\_revenue & order\_id & orders & Many-to-One \\
+        bestseller\_predictions & product\_id & products & One-to-One \\
+        ranking\_trend\_predictions & product\_id & products & One-to-One \\
+        price\_intelligence & product\_id & products & One-to-One \\
+        product\_reviews & user\_id & users & Many-to-One \\
+        product\_reviews & product\_asin & products & Many-to-One \\
+        notifications & user\_id & users & Many-to-One \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:key_relationships}
+\end{table}
+
+
+\section{Conclusion}
+
+L'architecture des données de MouadVision combine un modèle conceptuel clair avec une implémentation technique robuste. Les 11 entités du domaine métier forment le cœur de la plateforme, tandis que les extensions ML et techniques enrichissent les fonctionnalités sans complexifier le modèle de base. L'utilisation de Spring Boot JPA assure un mapping objet-relationnel automatique et maintenable, facilitant l'évolution future du système.
+
+\chapter{Architecture Backend - Spring Boot}
+
+\section{Vue d'Ensemble}
+
+Le backend de MouadVision est développé avec \textbf{Spring Boot 3.2.1} et \textbf{Java 21}. L'architecture suit les bonnes pratiques de développement entreprise avec une séparation claire des responsabilités.
+
+\section{Structure du Projet}
+
+Le code source est organisé dans le package \texttt{com.dashboard} avec la structure suivante :
+
+\begin{verbatim}
+backend/src/main/java/com/dashboard/
+├── config/           # Configuration de l'application
+├── controller/       # Contrôleurs REST
+├── dto/              # Objets de transfert de données
+│   ├── request/      # DTOs pour les requêtes entrantes
+│   └── response/     # DTOs pour les réponses sortantes
+├── entity/           # Entités JPA
+├── exception/        # Gestion des exceptions
+├── repository/       # Interfaces JPA Repository
+├── security/         # Configuration sécurité et JWT
+├── service/          # Logique métier
+└── DashboardApplication.java
+\end{verbatim}
+
+\section{Dossier config}
+
+Ce dossier contient les classes de configuration de l'application.
+
+\textbf{Fichiers principaux :}
+\begin{itemize}[noitemsep]
+    \item Configuration de la base de données MySQL
+    \item Configuration CORS pour le frontend React
+    \item Configuration du RestTemplate pour le service ML
+\end{itemize}
+
+\textbf{Avantage :} Centralisation de toutes les configurations, facilitant la maintenance et les modifications sans toucher au code métier.
+
+\section{Dossier controller}
+
+Contient les contrôleurs REST qui exposent les endpoints de l'API.
+
+\textbf{Contrôleurs principaux :}
+
+\begin{table}[H]
+    \centering
+    \caption{Liste des contrôleurs}
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        \textbf{Contrôleur} & \textbf{Responsabilité} \\
+        \midrule
+        AuthController & Authentification, inscription, récupération mot de passe \\
+        ProductController & CRUD produits, recherche, filtrage \\
+        CategoryController & Gestion des catégories \\
+        OrderController & Création et gestion des commandes \\
+        SellerController & Dashboard et opérations vendeur \\
+        AdminSellerController & Gestion des vendeurs par l'admin \\
+        AnalystController & Endpoints analytiques et rapports \\
+        PredictionController & Prédictions ML et statistiques \\
+        NotificationController & Gestion des notifications \\
+        UserController & Profil utilisateur \\
+        PublicController & Endpoints publics (sans auth) \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:controllers}
+\end{table}
+
+\textbf{Avantage :} Séparation des responsabilités par domaine fonctionnel, facilitant la maintenance et les tests unitaires.
+
+\section{Dossier dto}
+
+Les DTOs (Data Transfer Objects) permettent de découpler les entités JPA des données échangées avec le client.
+
+\subsection{Sous-dossier request}
+
+Contient les DTOs pour les requêtes entrantes avec validation :
+\begin{itemize}[noitemsep]
+    \item LoginRequest, RegisterRequest
+    \item ProductRequest, OrderRequest
+    \item SellerProductSubmissionRequest
+    \item PredictionRequest, AnalystRequest
+    \item AnalystUpdateRequest, ListfromStockRequest
+    \item ProductApprovalRequest
+\end{itemize}
+
+\subsection{Sous-dossier response}
+
+Contient les DTOs pour les réponses :
+\begin{itemize}[noitemsep]
+    \item ApiResponse<T> : Wrapper générique pour toutes les réponses
+    \item ProductResponse, OrderResponse
+    \item AuthResponse avec token JWT
+    \item BestsellerPredictionResponse, RankingTrendPredictionResponse
+    \item PriceIntelligenceResponse
+    \item SellerDashboardResponse, CategoryStatsResponse
+\end{itemize}
+
+\textbf{Avantage :} Protection des entités, validation des données entrantes, flexibilité dans le format des réponses.
+
+\section{Dossier entity}
+
+Contient les entités JPA mappées sur les tables de la base de données.
+
+\textbf{Entités principales :}
+\begin{itemize}[noitemsep]
+    \item User, Category, Product
+    \item Order, OrderItem
+    \item SellerRevenue, PlatformRevenue
+    \item BestsellerPrediction, RankingTrendPrediction, PriceIntelligence
+    \item Notification, ProductReview
+    \item SellerStock, SellerProductRequest
+\end{itemize}
+
+Chaque entité utilise les annotations Lombok (@Data, @Builder, @NoArgsConstructor, @AllArgsConstructor) pour réduire le code boilerplate.
+
+\section{Dossier exception}
+
+Gestion centralisée des exceptions avec :
+\begin{itemize}[noitemsep]
+    \item ResourceNotFoundException : Ressource non trouvée (404)
+    \item DuplicateResourceException : Ressource déjà existante (409)
+    \item GlobalExceptionHandler : Handler global avec @ControllerAdvice
+\end{itemize}
+
+\textbf{Avantage :} Réponses d'erreur cohérentes et informatives pour le client.
+
+\section{Dossier repository}
+
+Interfaces JPA Repository pour l'accès aux données.
+
+\textbf{Exemples de repositories :}
+\begin{itemize}[noitemsep]
+    \item ProductRepository : Requêtes personnalisées pour produits
+    \item OrderRepository : Statistiques de commandes
+    \item SellerRevenueRepository : Calculs de revenus complexes
+    \item BestsellerPredictionRepository : Accès aux prédictions
+\end{itemize}
+
+Utilisation de @Query pour les requêtes JPQL personnalisées.
+
+\section{Dossier security}
+
+Configuration de la sécurité Spring Security avec JWT.
+
+\textbf{Composants :}
+\begin{itemize}[noitemsep]
+    \item JwtTokenProvider : Génération et validation des tokens
+    \item JwtAuthenticationFilter : Filtre d'authentification
+    \item SecurityConfig : Configuration des règles d'accès
+    \item CustomUserDetailsService : Chargement des utilisateurs
+\end{itemize}
+
+\section{Dossier service}
+
+Couche de logique métier contenant les services.
+
+\textbf{Services principaux :}
+
+\begin{table}[H]
+    \centering
+    \caption{Exemple des Services du Backend}
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        \textbf{Service} & \textbf{Responsabilité} \\
+        \midrule
+        AuthService & Authentification, inscription, tokens \\
+        ProductService & Logique métier produits \\
+        OrderService & Traitement des commandes \\
+        SellerService & Opérations vendeur \\
+        SellerRevenueService & Calcul des revenus (90\% vendeur, 10\% plateforme) \\
+        AnalystService & Agrégations et statistiques \\
+        PredictionService & Orchestration des prédictions ML \\
+        MLServiceClient & Communication avec le microservice Python \\
+        NotificationService & Envoi de notifications \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:services}
+\end{table}
+
+\section{Fichiers de Configuration}
+
+\subsection{pom.xml}
+
+Le fichier Maven définit les dépendances du projet :
+
+\begin{itemize}[noitemsep]
+    \item spring-boot-starter-web : API REST
+    \item spring-boot-starter-data-jpa : Persistence JPA
+    \item spring-boot-starter-security : Sécurité
+    \item spring-boot-starter-validation : Validation des données
+    \item mysql-connector-j : Driver MySQL
+    \item jjwt-api (v0.12.3) : JWT tokens
+    \item lombok (v1.18.30) : Réduction du boilerplate
+    \item mapstruct (v1.5.5) : Mapping DTO/Entity
+    \item springdoc-openapi (v2.3.0) : Documentation API
+    \item opencsv (v5.9) : Export CSV
+    \item poi (v5.2.5) : Export Excel
+\end{itemize}
+
+\subsection{application.properties}
+
+Configuration de l'application incluant :
+\begin{itemize}[noitemsep]
+    \item Connexion base de données MySQL
+    \item Configuration JPA/Hibernate
+    \item Paramètres JWT (secret, expiration)
+    \item URL du service ML (localhost:5001)
+    \item Configuration serveur (port 8080)
+\end{itemize}
+
+\section{Avantages de cette Architecture}
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Séparation des responsabilités} : Chaque couche a un rôle précis
+    \item \textbf{Testabilité} : Les services peuvent être testés indépendamment
+    \item \textbf{Maintenabilité} : Modifications localisées sans impact global
+    \item \textbf{Scalabilité} : Structure prête pour la croissance
+    \item \textbf{Réutilisabilité} : Services et DTOs réutilisables
+\end{enumerate}
+
+% ============================================================================
+% CHAPITRE 5 : FRONTEND REACT TYPESCRIPT
+% ============================================================================
+\chapter{Architecture Frontend - React TypeScript}
+
+\section{Vue d'Ensemble}
+
+Le frontend de MouadVision est développé avec \textbf{React 18}, \textbf{TypeScript}, et \textbf{Tailwind CSS}. L'application est une SPA (Single Page Application) avec routing côté client.
+
+\section{Structure du Projet}
+
+\begin{verbatim}
+frontend/Main/src/
+├── components/       # Composants réutilisables
+│   ├── auth/         # Formulaires authentification
+│   ├── common/       # Composants communs (Toast, Loading)
+│   ├── ecommerce/    # Composants e-commerce
+│   ├── form/         # Éléments de formulaire
+│   ├── seller/      
+│   ├── product/ 
+│   ├── ui/            # Composants UI de base
+│   ├── common/
+│   ├── header/
+│   ├── UserProfile/    
+│   └── admin/        # Composants spécifiques admin
+├── context/          # Contextes React (Auth, Cart)
+├── hooks/            # Hooks personnalisés
+├── icons/            # Icônes SVG
+├── layout/           # Layouts par rôle
+├── pages/            # Pages de l'application
+│   ├── Admin/        # Pages administrateur
+│   ├── Analyst/      # Pages analyste
+│   ├── AuthPages/    # Pages authentification
+│   ├── Buyer/        # Pages acheteur
+│   ├── Dashboard/    # Dashboard principal
+│   ├── Public/       # Pages publiques
+│   └── Seller/       # Pages vendeur
+├── service/          # Services API
+├── types/            # Types TypeScript
+├── App.tsx           # Composant principal avec routing
+└── main.tsx          # Point d'entrée
+\end{verbatim}
+
+\section{Dossier components}
+
+\subsection{components/auth}
+
+Composants d'authentification :
+\begin{itemize}[noitemsep]
+    \item SignInForm : Formulaire de connexion
+    \item SignUpForm : Formulaire d'inscription avec choix de rôle
+\end{itemize}
+
+\subsection{components/common}
+
+Composants réutilisables :
+\begin{itemize}[noitemsep]
+    \item Toast : Notifications temporaires
+    \item PageMeta : Gestion des meta-tags SEO
+    \item Loading : Indicateurs de chargement
+\end{itemize}
+
+\subsection{components/ecommerce}
+
+Composants pour le tableau de bord e-commerce :
+\begin{itemize}[noitemsep]
+    \item EcommerceMetrics : KPIs principaux
+    \item TopProductTable : Tableau des meilleurs produits
+    \item CategoryDistributionChart : Distribution par catégorie
+    \item BestsellerCards : Cartes des bestsellers
+    \item PriceDistributionChart : Distribution des prix
+    \item RatingDistributionChart : Distribution des notes
+    \item TopCategoriesRevenueChart : Revenus par catégorie
+    \item TopSellersChart : Graphique des meilleurs vendeurs
+\end{itemize}
+
+\subsection{components/ui}
+
+Composants UI de base :
+\begin{itemize}[noitemsep]
+    \item Button : Boutons stylisés
+    \item Input : Champs de saisie
+    \item Modal : Fenêtres modales
+    \item Table : Tableaux de données
+    \item Badge : Badges d'état
+\end{itemize}
+
+\section{Dossier context}
+
+Gestion de l'état global avec React Context :
+
+\begin{itemize}[noitemsep]
+    \item \textbf{AuthContext} : Gestion de l'authentification
+    \begin{itemize}[noitemsep]
+        \item État utilisateur connecté
+        \item Fonctions login, logout, register
+        \item Mise à jour du profil
+        \item Stockage du token JWT
+    \end{itemize}
+    \item \textbf{CartContext} : Gestion du panier
+    \begin{itemize}[noitemsep]
+        \item Articles dans le panier
+        \item Ajout, suppression, modification quantité
+        \item Calcul du total
+        \item Persistance locale
+    \end{itemize}
+\end{itemize}
+
+\section{Dossier layout}
+
+Layouts spécifiques par rôle utilisateur :
+
+\begin{itemize}[noitemsep]
+    \item \textbf{AppLayout} : Layout pour l'administrateur
+    \item \textbf{AnalystLayout} : Layout pour l'analyste
+    \item \textbf{SellerLayout} : Layout pour le vendeur
+    \item \textbf{BuyerLayout} : Layout pour l'acheteur
+\end{itemize}
+
+Chaque layout inclut une barre de navigation latérale adaptée au rôle.
+
+\section{Dossier pages}
+
+\subsection{pages/Public}
+
+Pages accessibles sans authentification :
+\begin{itemize}[noitemsep]
+    \item LandingPage : Page d'accueil principale
+    \item PublicShopPage : Catalogue public
+    \item AboutPage : Présentation du projet
+\end{itemize}
+
+\subsection{pages/Admin}
+
+Pages de l'administrateur :
+\begin{itemize}[noitemsep]
+    \item Home : Dashboard administrateur
+    \item ProductsPage : Gestion des produits
+    \item ProductApprovals : Approbation des nouveaux produits
+    \item AdminOrdersPage : Gestion des commandes
+    \item SellerManagement : Gestion des vendeurs
+    \item AnalystManagement : Gestion des analystes
+    \item AdminStockManagement : Gestion du stock global
+    \item PredictiveDashboard : Tableau de bord prédictif
+\end{itemize}
+
+\subsection{pages/Analyst}
+
+Pages de l'analyste :
+\begin{itemize}[noitemsep]
+    \item AnalystDashboard : Dashboard principal avec KPIs
+    \item SalesAnalytics : Analyse détaillée des ventes
+    \item ProductAnalytics : Performance des produits
+    \item SellerAnalytics : Performance des vendeurs
+    \item CategoryAnalysis : Analyse par catégorie
+    \item Reports : Génération et export de rapports
+    \item PredictiveDashboard : Prédictions ML
+\end{itemize}
+
+\subsection{pages/Seller}
+
+Pages du vendeur :
+\begin{itemize}[noitemsep]
+    \item SellerDashboard : Dashboard avec revenus et statistiques
+    \item SellerProducts : Gestion de ses produits
+    \item SellerProductForm : Formulaire ajout/modification produit
+    \item SellerOrders : Commandes de ses produits
+    \item SellerStockManagement : Gestion de son stock
+    \item SellerReviews : Avis reçus
+    \item SellerProfile : Profil vendeur
+\end{itemize}
+
+\subsection{pages/Buyer}
+
+Pages de l'acheteur :
+\begin{itemize}[noitemsep]
+    \item ShopPage : Catalogue avec filtres
+    \item ProductDetailPage : Détail d'un produit
+    \item CartPage : Panier d'achat
+    \item CheckoutPage : Processus de commande
+    \item OrderHistoryPage : Historique des commandes
+    \item BuyerProfilePage : Profil acheteur
+    \item MyReviewsPage : Mes avis
+\end{itemize}
+
+\section{Dossier service}
+
+Services pour la communication avec l'API :
+
+\begin{itemize}[noitemsep]
+    \item api.ts : Service principal avec fonctions communes
+    \item predictionService.ts : Appels API prédictions ML
+    \item analystService.ts : Appels API analytiques
+    \item sellerService.ts : Appels API vendeur
+    \item reportService.ts : Génération de rapports
+    \item advancedPdfExportService.ts : Export PDF avancé
+    \item notification.ts : Gestion des notifications
+\end{itemize}
+
+\section{Routing et Protection des Routes}
+
+Le fichier App.tsx définit le routing avec protection par rôle :
+
+\begin{itemize}[noitemsep]
+    \item Routes publiques : /, /explore, /about, /signin, /signup
+    \item Routes Admin : /admin/* (rôle ADMIN)
+    \item Routes Analyst : /analyst/* (rôles ANALYST, ADMIN)
+    \item Routes Seller : /seller/* (rôle SELLER)
+    \item Routes Buyer : /shop/* (rôle BUYER)
+\end{itemize}
+
+Le composant PrivateRoute vérifie le token JWT et le rôle avant d'autoriser l'accès.
+
+\section{Bibliothèques Utilisées}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{React Router DOM} : Navigation SPA
+    \item \textbf{Axios} : Requêtes HTTP
+    \item \textbf{Chart.js / Recharts} : Graphiques et visualisations
+    \item \textbf{Tailwind CSS} : Styling utilitaire
+    \item \textbf{jsPDF} : Génération de PDF côté client
+    \item \textbf{Lucide React} : Icônes
+\end{itemize}
+
+% ============================================================================
+% CHAPITRE 6 : SERVICE ML - PYTHON FASTAPI
+% ============================================================================
+\chapter{Service ML - Python FastAPI}
+
+\section{Vue d'Ensemble}
+
+Le service de Machine Learning est un microservice Python indépendant utilisant \textbf{FastAPI}. Il fonctionne sur le port \textbf{5001} et communique avec le backend Spring Boot via API REST.
+
+\section{Structure du Projet}
+
+\begin{verbatim}
+ml-service/
+├── app/
+│   ├── api/              # Endpoints FastAPI
+│   │   ├── health.py     # Health check et métriques
+│   │   ├── predictions.py # Endpoints de prédiction
+│   │   └── training.py   # Endpoints d'entraînement
+│   ├── core/             # Configuration et schémas
+│   │   ├── database.py   # Connexion MySQL
+│   │   ├── exceptions.py # Exceptions personnalisées
+│   │   └── schemas.py    # Schémas Pydantic
+│   ├── ml/               # Modèles ML
+│   │   ├── bestseller_model.py  # Modèle XGBoost
+│   │   ├── ranking_model.py     # Modèle Gradient Boosting
+│   │   ├── price_optimizer.py   # Analyse statistique prix
+│   │   ├── data_loader.py       # Chargement des données
+│   │   └── feature_engineering.py # Ingénierie des features
+│   └── models/           # Modèles sérialisés (.pkl)
+│       ├── bestseller_model.pkl
+│       ├── bestseller_metadata.json
+│       ├── ranking_model.pkl
+│       └── ranking_metadata.json
+├── config.py             # Configuration globale
+├── main.py               # Point d'entrée FastAPI
+└── requirements.txt      # Dépendances Python
+\end{verbatim}
+
+\section{Modèles de Machine Learning}
+
+\subsection{Modèle Bestseller (XGBoost)}
+
+Ce modèle prédit la probabilité qu'un produit devienne un bestseller.
+
+\textbf{Algorithme :} XGBoost Classifier
+
+\textbf{Features utilisées :}
+\begin{itemize}[noitemsep]
+    \item price : Prix du produit
+    \item rating : Note moyenne
+    \item reviews\_count : Nombre d'avis
+    \item sales\_count : Nombre de ventes
+    \item discount\_percentage : Pourcentage de remise
+    \item days\_since\_listed : Jours depuis mise en ligne
+    \item stock\_quantity : Quantité en stock
+    \item price\_to\_category\_avg\_ratio : Ratio prix/moyenne catégorie
+    \item reviews\_to\_category\_avg\_ratio : Ratio avis/moyenne catégorie
+    \item rating\_normalized : Note normalisée
+    \item reviews\_count\_log : Log du nombre d'avis
+    \item sales\_count\_log : Log du nombre de ventes
+    \item has\_discount : Présence de remise
+    \item is\_low\_stock : Stock faible
+\end{itemize}
+
+\textbf{Métriques obtenues :}
+\begin{itemize}[noitemsep]
+    \item Accuracy : 96.3\%
+    \item Precision : 62.5\%
+    \item Recall : 83.3\%
+    \item F1-Score : 71.4\%
+    \item AUC-ROC : 99.5\%
+\end{itemize}
+
+\subsection{Modèle Ranking (Gradient Boosting)}
+
+Ce modèle prédit la tendance future du classement d'un produit.
+
+\textbf{Algorithme :} Gradient Boosting Regressor
+
+\textbf{Features utilisées :}
+\begin{itemize}[noitemsep]
+    \item price, rating, reviews\_count, sales\_count
+    \item price\_to\_category\_avg\_ratio
+    \item reviews\_to\_category\_avg\_ratio
+    \item rating\_normalized
+    \item reviews\_count\_log, sales\_count\_log
+    \item has\_discount, discount\_percentage
+\end{itemize}
+
+\textbf{Métriques obtenues :}
+\begin{itemize}[noitemsep]
+    \item MAE (Mean Absolute Error) : 0.817
+    \item R² Score : 92.1\%
+\end{itemize}
+
+\textbf{Note :} Ce modèle est marqué comme expérimental car il utilise des labels synthétiques générés à partir des caractéristiques du produit.
+
+\subsection{Price Intelligence (Analyse Statistique)}
+
+L'analyse de prix est basée sur des méthodes statistiques plutôt que sur du ML.
+
+\textbf{Méthode :}
+\begin{enumerate}[noitemsep]
+    \item Calcul du positionnement par rapport à la moyenne de la catégorie
+    \item Analyse du ratio prix/valeur perçue (rating, reviews)
+    \item Recommandation d'action : AUGMENTER, MAINTENIR, DIMINUER
+    \item Classification : PREMIUM, COMPETITIVE, BUDGET
+\end{enumerate}
+
+\section{Endpoints API}
+
+\begin{table}[H]
+    \centering
+    \caption{Endpoints du Service ML}
+    \begin{tabularx}{\textwidth}{llX}
+        \toprule
+        \textbf{Méthode} & \textbf{Endpoint} & \textbf{Description} \\
+        \midrule
+        GET & /health & Vérification de l'état du service \\
+        GET & /metrics & Métriques des modèles \\
+        POST & /predict/bestseller & Prédiction bestseller \\
+        POST & /predict/ranking & Prédiction tendance ranking \\
+        POST & /predict/price-intelligence & Analyse de prix \\
+        POST & /predict/complete & Toutes les prédictions \\
+        POST & /train/bestseller & Entraîner modèle bestseller \\
+        POST & /train/ranking & Entraîner modèle ranking \\
+        POST & /train/all & Entraîner tous les modèles \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:ml_endpoints}
+\end{table}
+
+\section{Dépendances Python}
+
+\begin{verbatim}
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+sqlalchemy==2.0.25
+pymysql==1.1.0
+cryptography==42.0.0
+pandas==2.1.4
+numpy==1.26.3
+scikit-learn==1.4.0
+xgboost==2.0.3
+joblib==1.3.2
+python-multipart==0.0.6
+python-dotenv==1.0.0
+httpx==0.26.0
+python-json-logger==2.0.7
+\end{verbatim}
+
+\section{Communication avec le Backend}
+
+Le backend Spring Boot communique avec le service ML via la classe \texttt{MLServiceClient} :
+
+\begin{enumerate}[noitemsep]
+    \item Le backend reçoit une requête de prédiction
+    \item \texttt{MLServiceClient} construit un \texttt{PredictionRequest}
+    \item Appel HTTP POST vers le service ML (port 5001)
+    \item Le service ML exécute la prédiction
+    \item Le résultat est retourné et stocké en base de données
+    \item Les vendeurs concernés sont notifiés si nécessaire
+\end{enumerate}
+
+% ============================================================================
+% CHAPITRE 7 : SYSTÈME DE RÔLES
+% ============================================================================
+\chapter{Système de Rôles et Autorisations}
+
+\section{Vue d'Ensemble}
+
+MouadVision implémente un système de contrôle d'accès basé sur les rôles (RBAC). Quatre rôles distincts sont définis, chacun avec des permissions spécifiques.
+
+\section{Rôle : ADMIN (Administrateur)}
+
+L'administrateur a un contrôle total sur la plateforme.
+
+\textbf{Capacités :}
+\begin{itemize}[noitemsep]
+    \item Accès au dashboard principal avec KPIs globaux
+    \item Gestion complète des produits (CRUD)
+    \item Approbation ou rejet des produits soumis par les vendeurs
+    \item Gestion des vendeurs (vérification, activation/désactivation)
+    \item Gestion des analystes (création, modification, suppression)
+    \item Visualisation de toutes les commandes
+    \item Accès aux revenus de la plateforme
+    \item Accès au tableau de bord prédictif ML
+    \item Export de rapports avancés (PDF, Excel)
+    \item Gestion du stock global
+    \item Gestion des notifications système
+\end{itemize}
+
+\textbf{Pages accessibles :}
+\begin{itemize}[noitemsep]
+    \item /admin : Dashboard principal
+    \item /admin/products : Gestion des produits
+    \item /admin/product-approvals : Approbations
+    \item /admin/orders : Toutes les commandes
+    \item /admin/sellers : Gestion vendeurs
+    \item /admin/analysts : Gestion analystes
+    \item /admin/stock : Gestion stock
+    \item /admin/predictions : Prédictions ML
+    \item /admin/profile : Profil administrateur
+\end{itemize}
+
+\section{Rôle : ANALYST (Analyste)}
+
+L'analyste a accès aux outils d'analyse et de reporting.
+
+\textbf{Capacités :}
+\begin{itemize}[noitemsep]
+    \item Dashboard analytique avec KPIs détaillés
+    \item Analyse des ventes (tendances, croissance)
+    \item Analyse des produits (performance, distribution)
+    \item Analyse des vendeurs (classement, revenus)
+    \item Analyse par catégorie
+    \item Génération de rapports (PDF, Excel, CSV)
+    \item Accès au tableau de bord prédictif
+    \item Visualisation des graphiques et charts
+    \item Consultation en lecture seule (pas de modifications)
+\end{itemize}
+
+\textbf{Pages accessibles :}
+\begin{itemize}[noitemsep]
+    \item /analyst : Dashboard analyste
+    \item /analyst/sales : Analyse des ventes
+    \item /analyst/products : Analyse des produits
+    \item /analyst/sellers : Performance vendeurs
+    \item /analyst/categories : Analyse catégories
+    \item /analyst/reports : Génération de rapports
+    \item /analyst/predictions : Prédictions ML
+    \item /analyst/profile : Profil analyste
+\end{itemize}
+
+\section{Rôle : SELLER (Vendeur)}
+
+Le vendeur peut gérer ses propres produits et suivre ses ventes.
+
+\textbf{Capacités :}
+\begin{itemize}[noitemsep]
+    \item Dashboard personnel avec revenus et statistiques
+    \item Soumission de nouveaux produits (en attente d'approbation)
+    \item Modification de ses produits approuvés
+    \item Gestion de son stock personnel
+    \item Visualisation des commandes de ses produits
+    \item Consultation des avis reçus
+    \item Achat de stock depuis le catalogue MouadVision
+    \item Création de produits à partir du stock acheté
+    \item Profil vendeur avec informations de boutique
+    \item Réception de notifications sur les prédictions ML
+\end{itemize}
+
+\textbf{Pages accessibles :}
+\begin{itemize}[noitemsep]
+    \item /seller/dashboard : Dashboard vendeur
+    \item /seller/products : Mes produits
+    \item /seller/products/new : Nouveau produit
+    \item /seller/stock : Mon stock
+    \item /seller/orders : Commandes de mes produits
+    \item /seller/reviews : Avis reçus
+    \item /seller/profile : Profil et boutique
+    \item /seller/shop : Catalogue (pour acheter du stock)
+\end{itemize}
+
+\textbf{Restrictions :}
+\begin{itemize}[noitemsep]
+    \item Ne peut pas voir les produits des autres vendeurs
+    \item Ne peut pas modifier les prix après approbation sans nouvelle soumission
+    \item Commission de 10\% prélevée sur chaque vente
+\end{itemize}
+
+\section{Rôle : BUYER (Acheteur)}
+
+L'acheteur peut parcourir le catalogue et effectuer des achats.
+
+\textbf{Capacités :}
+\begin{itemize}[noitemsep]
+    \item Parcourir le catalogue de produits
+    \item Recherche et filtrage avancés
+    \item Ajout au panier
+    \item Passage de commandes
+    \item Historique des commandes
+    \item Écriture d'avis sur les produits achetés
+    \item Like/Dislike des produits
+    \item Gestion du profil personnel
+    \item Réception de notifications sur les commandes
+\end{itemize}
+
+\textbf{Pages accessibles :}
+\begin{itemize}[noitemsep]
+    \item /shop : Catalogue principal
+    \item /shop/product/:asin : Détail produit
+    \item /shop/cart : Panier
+    \item /shop/checkout : Paiement
+    \item /shop/orders : Historique commandes
+    \item /shop/reviews : Mes avis
+    \item /shop/profile : Mon profil
+\end{itemize}
+
+\section{Tableau Récapitulatif des Permissions}
+
+\begin{table}[H]
+    \centering
+    \caption{Matrice des Permissions par Rôle}
+    \small
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Fonctionnalité} & \textbf{Admin} & \textbf{Analyst} & \textbf{Seller} & \textbf{Buyer} \\
+        \midrule
+        Dashboard global & \checkmark & \checkmark & - & - \\
+        CRUD Produits global & \checkmark & - & - & - \\
+        Approbation produits & \checkmark & - & - & - \\
+        Gestion utilisateurs & \checkmark & - & - & - \\
+        Rapports analytiques & \checkmark & \checkmark & - & - \\
+        Prédictions ML & \checkmark & \checkmark & Alertes & - \\
+        Mes produits & - & - & \checkmark & - \\
+        Mon stock & - & - & \checkmark & - \\
+        Mes commandes vendeur & - & - & \checkmark & - \\
+        Achat produits & - & - & \checkmark & \checkmark \\
+        Panier & - & - & \checkmark & \checkmark \\
+        Historique achats & - & - & - & \checkmark \\
+        Écrire des avis & - & - & - & \checkmark \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:permissions}
+\end{table}
+
+% ============================================================================
+% CHAPITRE 8 : ANALYSE PRÉDICTIVE
+% ============================================================================
+\chapter{Analyse Prédictive}
+
+\section{Vue d'Ensemble}
+
+L'analyse prédictive est une fonctionnalité clé de MouadVision, permettant d'anticiper les performances des produits et d'optimiser les stratégies commerciales.
+
+\section{Prédiction des Bestsellers}
+
+\subsection{Objectif}
+
+Identifier les produits susceptibles de devenir des bestsellers avant qu'ils n'atteignent ce statut.
+
+\subsection{Méthodologie}
+
+Le modèle XGBoost analyse les caractéristiques des produits pour calculer une probabilité de devenir bestseller. Les produits avec une probabilité supérieure à 70\% sont considérés comme des bestsellers potentiels.
+
+\subsection{Niveaux de Potentiel}
+
+\begin{table}[H]
+    \centering
+    \caption{Classification des Potentiels Bestsellers}
+    \begin{tabular}{llp{8cm}}
+        \toprule
+        \textbf{Probabilité} & \textbf{Niveau} & \textbf{Action Recommandée} \\
+        \midrule
+        $\geq$ 70\% & ÉLEVÉ & Promotion active, augmentation stock \\
+        50\% - 70\% & MOYEN & Surveillance, optimisation prix \\
+        $<$ 50\% & FAIBLE & Analyse des faiblesses \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:bestseller_levels}
+\end{table}
+
+\section{Prédiction des Tendances de Classement}
+
+\subsection{Objectif}
+
+Prédire si le classement d'un produit va s'améliorer, rester stable ou décliner.
+
+\subsection{Tendances Possibles}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{IMPROVING} : Le produit devrait gagner des positions
+    \item \textbf{STABLE} : Le classement devrait rester constant
+    \item \textbf{DECLINING} : Le produit risque de perdre des positions
+\end{itemize}
+
+\subsection{Facteurs Considérés}
+
+Le modèle analyse le "momentum" du produit basé sur :
+\begin{itemize}[noitemsep]
+    \item Note moyenne et son évolution
+    \item Vélocité des ventes
+    \item Croissance des avis
+    \item Compétitivité du prix
+    \item Niveau de stock
+\end{itemize}
+
+\textbf{Note importante :} Ce modèle est marqué comme expérimental car les labels d'entraînement sont générés synthétiquement à partir des caractéristiques du produit.
+
+\section{Intelligence de Prix}
+
+\subsection{Objectif}
+
+Recommander le prix optimal pour maximiser les ventes et les revenus.
+
+\subsection{Analyse}
+
+L'algorithme compare le prix du produit avec :
+\begin{itemize}[noitemsep]
+    \item Prix moyen de la catégorie
+    \item Prix minimum et maximum de la catégorie
+    \item Ratio prix/valeur perçue
+\end{itemize}
+
+\subsection{Actions Recommandées}
+
+\begin{table}[H]
+    \centering
+    \caption{Actions de Prix Recommandées}
+    \begin{tabular}{lp{10cm}}
+        \toprule
+        \textbf{Action} & \textbf{Condition} \\
+        \midrule
+        AUGMENTER & Prix inférieur à la moyenne avec bonne note et avis \\
+        MAINTENIR & Prix bien positionné par rapport au marché \\
+        DIMINUER & Prix supérieur à la moyenne avec note ou avis faibles \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:price_actions}
+\end{table}
+
+\subsection{Positionnement}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{PREMIUM} : Prix supérieur de plus de 20\% à la moyenne
+    \item \textbf{COMPETITIVE} : Prix proche de la moyenne ($\pm$ 20\%)
+    \item \textbf{BUDGET} : Prix inférieur de plus de 20\% à la moyenne
+\end{itemize}
+
+\section{Notifications Automatiques}
+
+Les vendeurs reçoivent des notifications automatiques lorsque :
+
+\begin{itemize}[noitemsep]
+    \item Un de leurs produits est identifié comme bestseller potentiel (probabilité $>$ 70\%)
+    \item Une recommandation de changement de prix significative est générée ($>$ 15\%)
+    \item La tendance de classement d'un produit change
+\end{itemize}
+
+\section{Interface Utilisateur}
+
+Le tableau de bord prédictif (accessible aux Admin et Analyst) présente :
+
+\begin{itemize}[noitemsep]
+    \item Vue d'ensemble avec statistiques globales
+    \item Onglet Rankings : Prédictions de classement
+    \item Onglet Bestsellers : Produits à fort potentiel
+    \item Onglet Prices : Recommandations de prix
+    \item Filtrage par catégorie
+    \item Indicateurs de confiance pour chaque prédiction
+\end{itemize}
+
+% ============================================================================
+% CHAPITRE 9 : FONCTIONNALITÉS PRINCIPALES
+% ============================================================================
+\chapter{Fonctionnalités Principales}
+
+\section{Gestion des Produits}
+
+\subsection{CRUD Complet}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Création} : Les vendeurs soumettent des produits pour approbation
+    \item \textbf{Lecture} : Catalogue consultable par tous, avec filtres avancés
+    \item \textbf{Mise à jour} : Modification par le vendeur ou l'admin
+    \item \textbf{Suppression} : Soft delete avec archivage
+\end{itemize}
+
+\subsection{Filtres et Recherche}
+
+\begin{itemize}[noitemsep]
+    \item Recherche par nom ou ASIN
+    \item Filtrage par catégorie
+    \item Filtrage par fourchette de prix
+    \item Filtrage par note minimale
+    \item Tri par classement, prix, note, nombre d'avis
+\end{itemize}
+
+\section{Gestion des Commandes}
+
+\subsection{Processus de Commande}
+
+\begin{enumerate}[noitemsep]
+    \item Ajout au panier
+    \item Validation du panier
+    \item Saisie des informations de livraison
+    \item Confirmation de la commande
+    \item Paiement (simulation)
+    \item Mise à jour du stock
+    \item Calcul et attribution des revenus
+\end{enumerate}
+
+\subsection{États des Commandes}
+
+\begin{itemize}[noitemsep]
+    \item PENDING : En attente de confirmation
+    \item CONFIRMED : Confirmée et payée
+    \item DELIVERED : Livrée
+    \item CANCELLED : Annulée
+\end{itemize}
+
+\section{Système de Revenus}
+
+\subsection{Produits MouadVision (Plateforme)}
+
+Pour les produits de la plateforme : 100\% du revenu va à MouadVision.
+
+\subsection{Produits Vendeurs}
+
+Pour les produits des vendeurs :
+\begin{itemize}[noitemsep]
+    \item 90\% du montant va au vendeur (net\_amount)
+    \item 10\% de commission pour la plateforme (platform\_fee)
+\end{itemize}
+
+Le calcul est automatique et tracé dans les tables \texttt{seller\_revenues} et \texttt{platform\_revenue}.
+
+\section{Système de Notifications}
+
+\subsection{Types de Notifications}
+
+\begin{itemize}[noitemsep]
+    \item PRODUCT\_APPROVED : Produit approuvé
+    \item PRODUCT\_REJECTED : Produit rejeté
+    \item NEW\_ORDER : Nouvelle commande
+    \item ORDER\_CONFIRMED : Commande confirmée
+    \item ORDER\_DELIVERED : Commande livrée
+    \item PREDICTION\_BESTSELLER : Alerte bestseller potentiel
+    \item PREDICTION\_PRICE : Recommandation de prix
+    \item STOCK\_ALERT : Alerte de stock faible
+\end{itemize}
+
+\section{Export de Données}
+
+\subsection{Formats Disponibles}
+
+\begin{itemize}[noitemsep]
+    \item PDF : Rapports détaillés avec graphiques
+    \item Excel : Données brutes pour analyse
+    \item CSV : Export simple pour compatibilité
+\end{itemize}
+
+\subsection{Types de Rapports}
+
+\begin{itemize}[noitemsep]
+    \item Rapport de ventes
+    \item Rapport de performance produits
+    \item Rapport vendeurs
+    \item Rapport analytique global
+\end{itemize}
+
+% ============================================================================
+% CHAPITRE 10 : FIGURES ET CAPTURES D'ÉCRAN
+% ============================================================================
+\chapter{Interfaces Graphiques}
+
+Cette section présente les principales interfaces de la plateforme MouadVision.
+
+\section{Pages Publiques}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{2.png}
+    \caption{Page d'accueil MouadVision}
+    \label{fig:placeholder}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % Première image
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{3.png}
+        \caption{Catalogue public des produits}
+        \label{fig:connexion}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{4.png}
+        \caption{Page À Propos}
+        \label{fig:inscription}
+    \end{subfigure}
+
+     \caption{Public Pages}
+    \label{fig:global}
+\end{figure}
+
+\section{Authentification}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{6.png}
+        \caption{Page de connexion}
+    \end{subfigure}
+    \hfill 
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{5.png}
+        \caption{Page d'inscription}
+    \end{subfigure}
+    \caption{User Interface(Connexion and Register)}
+\end{figure}
+
+\section{Interface Administrateur}
+\subsection{Dashboard administrateur}
+
+
+\begin{figure}[H]
+    \centering
+    % Première image
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{7.png}
+        \caption{Visualization des KPIs}
+        \label{fig:connexion}
+    \end{subfigure}
+    \hfill % Ajoute un espace flexible entre les deux images
+    % Deuxième image
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{8.png}
+        \caption{Perfermance des Vendeurs}
+        \label{fig:inscription}
+    \end{subfigure}
+
+     \caption{Admin Dashboard 1}
+    \label{fig:global}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % Première image
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{9.png}
+        \caption{Product by Category and Price Distribution}
+        \label{fig:connexion}
+    \end{subfigure}
+    \hfill % Ajoute un espace flexible entre les deux images
+    % Deuxième image
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{11.png}
+        \caption{Revenue by Category and Rating Distribution}
+        \label{fig:inscription}
+    \end{subfigure}
+
+     \caption{Admin Dashboard 2}
+    \label{fig:global}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{10.png}
+    \caption{Top 10 Products}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{12.png}
+        \caption{Seller's Products Approval Pages }
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{13.png}
+        \caption{Products Management}
+    \end{subfigure}
+     \caption{Admin Dashboard 3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{14.png}
+        \caption{Sellers Management }
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{17.png}
+        \caption{Analysts Management}
+    \end{subfigure}
+     \caption{Admin Dashboard 4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{15.png}
+        \caption{View All Orders Pages}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{16.png}
+        \caption{Stock Managment}
+    \end{subfigure}
+     \caption{Admin Dashboard 5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{18.png}
+    \caption{ Notifications Page}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\section{Interface Analyste}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Dashboard Analyste]}\vspace{3cm}}}
+    \caption{Dashboard analyste avec graphiques}
+    \label{fig:analyst_dashboard}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Analyse des ventes]}\vspace{3cm}}}
+    \caption{Page d'analyse des ventes}
+    \label{fig:sales_analytics}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Analyse par catégorie]}\vspace{3cm}}}
+    \caption{Analyse par catégorie avec charts}
+    \label{fig:category_analysis}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Analyse prédictive]}\vspace{3cm}}}
+    \caption{Tableau de bord prédictif}
+    \label{fig:predictive_dashboard}
+\end{figure}
+
+\section{Interface Vendeur}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Dashboard Vendeur]}\vspace{3cm}}}
+    \caption{Dashboard vendeur avec revenus}
+    \label{fig:seller_dashboard}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Mes produits vendeur]}\vspace{3cm}}}
+    \caption{Liste des produits du vendeur}
+    \label{fig:seller_products}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Formulaire nouveau produit]}\vspace{3cm}}}
+    \caption{Formulaire de soumission de produit}
+    \label{fig:seller_product_form}
+\end{figure}
+
+\section{Interface Acheteur}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Catalogue acheteur]}\vspace{3cm}}}
+    \caption{Catalogue avec filtres pour l'acheteur}
+    \label{fig:buyer_shop}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Détail produit]}\vspace{3cm}}}
+    \caption{Page détail d'un produit}
+    \label{fig:product_detail}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Panier]}\vspace{3cm}}}
+    \caption{Page du panier d'achat}
+    \label{fig:cart}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Capture d'écran : Checkout]}\vspace{3cm}}}
+    \caption{Page de paiement}
+    \label{fig:checkout}
+\end{figure}
+
+% ============================================================================
+% CONCLUSION
+% ============================================================================
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+Le projet MouadVision représente une démonstration complète des compétences acquises en développement web full-stack et en analyse de données. Cette plateforme de gestion et d'analyse de ventes combine plusieurs technologies modernes pour offrir une solution e-commerce complète avec des capacités prédictives avancées.
+
+\section*{Réalisations Principales}
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Préparation des Données} : Nettoyage et enrichissement d'un dataset de 708 produits Amazon, résultant en 513 produits exploitables avec des informations complètes obtenues par web scraping.
+
+    \item \textbf{Architecture Robuste} : Mise en place d'une architecture microservices avec Spring Boot pour le backend, React TypeScript pour le frontend, et FastAPI pour le service ML.
+
+    \item \textbf{Système Multi-Rôles} : Implémentation d'un contrôle d'accès basé sur les rôles avec quatre profils distincts (Admin, Analyst, Seller, Buyer), chacun avec des permissions spécifiques.
+
+    \item \textbf{Base de Données Complète} : Conception d'un schéma relationnel de 21 tables couvrant tous les aspects de la gestion e-commerce, des revenus et des prédictions.
+
+    \item \textbf{Machine Learning Intégré} : Développement de trois modèles prédictifs (bestseller, ranking, prix) avec une intégration transparente dans l'application.
+
+    \item \textbf{Interface Utilisateur Moderne} : Création d'interfaces réactives et intuitives avec visualisations de données via Chart.js et Recharts.
+\end{enumerate}
+
+\section*{Difficultés Rencontrées}
+
+Au cours du développement, certains défis ont été rencontrés :
+
+\begin{itemize}[noitemsep]
+    \item La recherche sémantique initialement prévue n'a pas été implémentée en raison de la complexité des modèles de langage requis
+    \item Le modèle de prédiction de ranking utilise des labels synthétiques et est marqué comme expérimental
+    \item L'intégration entre les différents services a nécessité une attention particulière aux problèmes de charset et de foreign keys
+\end{itemize}
+
+\section*{Perspectives d'Amélioration}
+
+Pour les futures itérations du projet :
+
+\begin{itemize}[noitemsep]
+    \item Implémentation de la recherche sémantique avec des embeddings
+    \item Collection de données réelles pour améliorer les modèles ML
+    \item Ajout de fonctionnalités de recommandation personnalisée
+    \item Intégration de systèmes de paiement réels
+    \item Déploiement sur une infrastructure cloud
+\end{itemize}
+
+\section*{Apprentissages}
+
+Ce projet a permis de consolider des compétences essentielles :
+
+\begin{itemize}[noitemsep]
+    \item Architecture microservices et communication inter-services
+    \item Développement full-stack avec technologies modernes
+    \item Intégration de Machine Learning dans une application web
+    \item Gestion de projet et résolution de problèmes techniques
+    \item Documentation et bonnes pratiques de développement
+\end{itemize}
+
+MouadVision démontre qu'il est possible de créer une plateforme e-commerce complète avec des fonctionnalités analytiques avancées dans le cadre d'un projet académique, tout en maintenant des standards de qualité professionnels.
+
+% ============================================================================
+% ANNEXES
+% ============================================================================
+\appendix
+
+\chapter{Technologies Utilisées}
+
+\section{Backend}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Technologie} & \textbf{Version} \\
+        \midrule
+        Java & 21 \\
+        Spring Boot & 3.2.1 \\
+        Spring Security & 6.x \\
+        Spring Data JPA & 3.x \\
+        MySQL & 8.0 \\
+        JWT (jjwt) & 0.12.3 \\
+        Lombok & 1.18.30 \\
+        MapStruct & 1.5.5 \\
+        OpenAPI/Swagger & 2.3.0 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Technologies Backend}
+\end{table}
+
+\section{Frontend}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Technologie} & \textbf{Version} \\
+        \midrule
+        React & 18.x \\
+        TypeScript & 5.x \\
+        Tailwind CSS & 3.x \\
+        React Router DOM & 6.x \\
+        Axios & 1.x \\
+        Chart.js & 4.x \\
+        Recharts & 2.x \\
+        jsPDF & 2.x \\
+        \bottomrule
+    \end{tabular}
+    \caption{Technologies Frontend}
+\end{table}
+
+\section{Machine Learning}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Technologie} & \textbf{Version} \\
+        \midrule
+        Python & 3.11+ \\
+        FastAPI & 0.109.0 \\
+        Uvicorn & 0.27.0 \\
+        Pandas & 2.1.4 \\
+        NumPy & 1.26.3 \\
+        Scikit-learn & 1.4.0 \\
+        XGBoost & 2.0.3 \\
+        SQLAlchemy & 2.0.25 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Technologies ML Service}
+\end{table}
+
+\end{document}

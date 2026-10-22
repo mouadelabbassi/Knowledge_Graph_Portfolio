@@ -1,0 +1,44 @@
+import type { LocalizedString, PortfolioNode } from '../types/portfolio.ts';
+const written = (text: string): LocalizedString => ({ en: { text, provenance: 'machine-written', reviewed: false }, fr: null, ar: null });
+
+export const additionalSkillGroups = [
+  { name: 'AI practice & foundations', labels: [['artificial-intelligence','Artificial Intelligence'],['machine-learning','Machine Learning'],['deep-learning','Deep Learning'],['reinforcement-learning','Reinforcement Learning'],['drl','Deep Reinforcement Learning'],['nlp','Natural Language Processing'],['llm','Large Language Models'],['fine-tuning','Fine-tuning'],['rag','Retrieval-Augmented Generation'],['prompt-engineering','Prompt Engineering'],['agentic-workflows','Agentic Workflows'],['ai-agents','AI Agents'],['agentic-development','Agentic AI Development'],['knowledge-engineering','Knowledge Engineering'],['graph-theory','Graph Theory'],['dsl','Domain-Specific Languages'],['benchmarking','Benchmarking'],['tokenization','Tokenization'],['word-embeddings','Word Embeddings'],['keras','Keras'],['pruning','Model Pruning'],['computer-vision','Computer Vision'],['image-processing','Image Processing'],['opencv','OpenCV'],['pillow','PIL / Pillow']] },
+  { name: 'Development & data practice', labels: [['gitlab','GitLab'],['github','GitHub'],['spring-framework','Spring Framework'],['microservices','Microservices'],['nosql','NoSQL'],['desktop-development','Desktop Application Development'],['ui-design','User Interface Design'],['data-analysis','Data Analysis'],['full-stack','Full-stack Development'],['web-development','Web Development'],['kaggle','Kaggle'],['jupyter','Jupyter'],['etl','Extract, Transform, Load'],['nodejs','Node.js'],['maven','Maven'],['file-management','File Management'],['kali-linux','Kali Linux'],['data-structures','Data Structures'],['data-engineering','Data Engineering'],['frontend-development','Frontend Development'],['data-science','Data Science'],['matlab','MATLAB'],['c','C']] },
+  { name: 'Collaboration & delivery', labels: [['collaborative-problem-solving','Collaborative Problem Solving'],['project-engineering','Project Engineering'],['project-management','Project Management'],['critical-thinking','Critical Thinking'],['customer-satisfaction','Customer Satisfaction'],['teamwork','Teamwork'],['customer-service','Customer Service'],['communication','Communication'],['problem-solving','Problem Solving'],['event-organization','Event Organization'],['logistics','Event Logistics']] },
+] as const;
+export const additionalSkillLabels = additionalSkillGroups.flatMap(group => group.labels.map(([id, label]) => [id, label] as const));
+
+// These associations come from the user's additional skills text, not course-name inference.
+export const documentedSkillLinks: Record<string, string[]> = {
+  leyton: ['python','git','gitlab','graph-theory','agentic-workflows','collaborative-problem-solving','benchmarking','knowledge-engineering','dsl','agentic-development','ai-agents','prompt-engineering','etl','llm','data-science','teamwork','problem-solving'],
+  'call-intelligence': ['git','gitlab','graph-theory','agentic-workflows','collaborative-problem-solving','benchmarking','knowledge-engineering','dsl','agentic-development','ai-agents','prompt-engineering','llm','data-science'],
+  'ensa-internship': ['artificial-intelligence','nlp','hugging-face','kaggle','jupyter','fine-tuning','rag','react','nodejs','data-visualization','frontend-development','machine-learning'],
+  'ensakh-chatbot': ['artificial-intelligence','nlp','kaggle','jupyter','fine-tuning','rag','react','nodejs','data-visualization','frontend-development','machine-learning'],
+  microgrid: ['prompt-engineering','reinforcement-learning','deep-learning','drl','teamwork'],
+  darija: ['nlp','llm','fine-tuning','tokenization'],
+  commerce: ['git','github','spring-framework','microservices','nlp','machine-learning','full-stack'],
+  'emotion-stress': ['nlp','machine-learning','deep-learning','data-science','benchmarking'],
+  'grand-heaven': ['full-stack','web-development','rest-api','ui-design'],
+  'sales-analysis': ['desktop-development','ui-design','data-analysis','java'],
+  'multimarket': ['nosql','data-engineering','data-analysis'],
+  'webhost': ['web-development','file-management'],
+  'laptop-analysis': ['data-analysis','data-science'],
+  'ibm': ['prompt-engineering','data-analysis','scipy','project-engineering','pandas','agentic-development','project-management','ai-agents','keras','tokenization','tensorflow','word-embeddings','langchain','reinforcement-learning','ppo','deep-learning','pytorch','artificial-intelligence','jupyter','fine-tuning','rag','pruning','llm','flask'],
+  'ensakh-forum': ['communication','problem-solving','teamwork','event-organization'],
+  dataverse: ['logistics','teamwork'],
+  mcdonalds: ['customer-satisfaction','customer-service','communication','teamwork'],
+};
+
+export const additionalEntries: PortfolioNode[] = [
+  { id: 'datacamp-fundamentals', label: 'AI Fundamentals', shortLabel: 'AI Fundamentals', kind: 'certification', cluster: 'certifications', eyebrow: written('DataCamp'), summary: written('AI Fundamentals credential from DataCamp.'), details: [], technologies: [], aliases: ['ai fundamentals','datacamp'] },
+  { id: 'datacamp-developers', label: 'AI Engineer for Developers', shortLabel: 'AI for Developers', kind: 'certification', cluster: 'certifications', period: 'Mar 2026', eyebrow: written('DataCamp'), summary: written('AI Engineer for Developers credential from DataCamp.'), details: [], technologies: [], aliases: ['ai engineer for developers','datacamp'] },
+  { id: 'datacamp-data-engineer', label: 'Data Engineer', shortLabel: 'Data Engineer', kind: 'certification', cluster: 'certifications', period: 'Mar 2026', eyebrow: written('DataCamp'), summary: written('Data Engineer credential from DataCamp.'), details: [], technologies: [], aliases: ['data engineer','datacamp'] },
+  { id: 'ibm-ai-engineering', label: 'IBM AI Engineering Professional Certificate', shortLabel: 'IBM AI Engineering', kind: 'certification', cluster: 'certifications', period: 'Jul 2026', eyebrow: written('IBM'), summary: written('AI Engineering Professional Certificate from IBM.'), details: [], technologies: [], aliases: ['ibm ai engineering','certificate'] },
+  { id: 'ibm-deep-learning', label: 'Deep Learning with PyTorch, Keras and TensorFlow', shortLabel: 'IBM Deep Learning', kind: 'certification', cluster: 'certifications', eyebrow: written('IBM'), summary: written('Deep Learning with PyTorch, Keras and TensorFlow credential from IBM.'), details: [], technologies: [], aliases: ['ibm deep learning','certificate'] },
+  { id: 'ibm-ml-python', label: 'Machine Learning with Python', shortLabel: 'IBM ML with Python', kind: 'certification', cluster: 'certifications', eyebrow: written('IBM'), summary: written('Machine Learning with Python credential from IBM.'), details: [], technologies: [], aliases: ['ibm machine learning','certificate'] },
+  { id: 'ensakh-forum', label: 'CODEX ENSAKH Club', shortLabel: 'CODEX forum', kind: 'volunteering', cluster: 'experience', role: 'Forum Organizer', period: 'Sep–Nov 2024', eyebrow: written('Volunteering · Organisateur de Forum'), summary: written('Contributed to organizing a forum with CODEX ENSAKH Club, bringing communication, teamwork, and problem solving into a campus event.'), details: [written('Volunteered as Organisateur de Forum from September to November 2024.'), written('Recognition certificate shown in the supplied volunteering record.')], technologies: [], aliases: ['volunteering','forum','codex','organisateur'], nameAliases: ['codex forum','forum organizer'] },
+  { id: 'dataverse', label: 'DATAVERSE', shortLabel: 'DATAVERSE logistics', kind: 'volunteering', cluster: 'experience', role: 'Logistics Assistant', period: 'Sep–Dec 2024', eyebrow: written('Volunteering · Logistics Assistant'), summary: written('Supported DATAVERSE as a Logistics Assistant, contributing to event logistics and team coordination.'), details: [written('Volunteered as Logistics Assistant from September to December 2024.'), written('Recognition certificate shown in the supplied volunteering record.')], technologies: [], aliases: ['volunteering','dataverse','logistics'], nameAliases: ['dataverse'] },
+  { id: 'mcdonalds', label: 'McDonald’s', shortLabel: 'McDonald’s', kind: 'experience', cluster: 'experience', role: 'Équipier Polyvalent', eyebrow: written('Équipier Polyvalent · Customer service'), summary: written('Developed customer service, communication, and teamwork through a versatile crew-member role at McDonald’s.'), details: [], technologies: [], aliases: ['mcdonalds','customer service','équipier polyvalent'], nameAliases: ['mcdonalds','mcdonald'] },
+];
+
+export const withDocumentedSkills = (node: PortfolioNode): PortfolioNode => ({ ...node, technologies: [...new Set([...node.technologies, ...(documentedSkillLinks[node.id] ?? [])])] });

@@ -1,0 +1,59 @@
+{
+  "label": "fixed-4x",
+  "durationMs": 12007.300000011921,
+  "width": 390,
+  "height": 844,
+  "dpr": 1,
+  "frames": 720,
+  "fps": 59.96352219060781,
+  "calls": 4,
+  "triangles": 394,
+  "renderer": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x00009A49) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "browserFrames": 720,
+  "browserFps": 59.96352219060781,
+  "browserIntervalP95Ms": 16.80000000000109,
+  "work": {
+    "render": {
+      "count": 720,
+      "totalMs": 1246.400000989437,
+      "averageMs": 1.7311111124853293,
+      "p95Ms": 4.300000011920929,
+      "maxMs": 14.699999988079071
+    },
+    "projection": {
+      "count": 720,
+      "totalMs": 108.19999998807907,
+      "averageMs": 0.15027777776122092,
+      "p95Ms": 0.40000003576278687,
+      "maxMs": 7.200000047683716
+    },
+    "camera": {
+      "count": 0,
+      "totalMs": 0,
+      "averageMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0
+    }
+  },
+  "styleWrites": 0,
+  "reactRenders": {
+    "GraphShell": 0,
+    "KnowledgeGraph": 0,
+    "GraphLabels": 0,
+    "GraphCamera": 0
+  },
+  "layout": {
+    "runs": 1,
+    "ticks": 300,
+    "ms": 1818.199999988079,
+    "alpha": 0.0009999999999999966,
+    "maxSpeed": 0.000024351776682184595,
+    "stopped": true
+  },
+  "postprocessingPasses": 0,
+  "visibility": "visible",
+  "focused": true,
+  "idleCheckMs": 2000,
+  "idleFrames": 0,
+  "idleStyleWrites": 0
+}

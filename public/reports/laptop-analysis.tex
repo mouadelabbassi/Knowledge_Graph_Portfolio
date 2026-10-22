@@ -1,0 +1,762 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{a4paper, margin=2.5cm}
+
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{Traitement et Visualisation des Donn\'ees}
+
+\title{\Huge \textbf{ Rapport \\[0.5em]\\[0.5em] Traitement et Visualisation \\ des Donn\'ees \\ Laptops }}
+\author{\Large Réalisé par :  \\ [0.5em] Mouad El Abbassi \\ Chaimae El Mounjali \\[0.5em]
+        \\ Encadr\'e par : \\[0.5em] Pr.AIT MAIT \\ [0.5em]}
+\date{19 Mai 2025}
+
+
+
+
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  language=Python
+}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ========================
+
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+Ce projet s'inscrit dans le domaine de l'informatique et de la science des donn\'ees. L'objectif est de traiter un ensemble de donn\'ees brutes concernant des ordinateurs portables afin d'en extraire des informations utiles \a la prise de d\'ecision.
+
+La probl\'ematique principale repose sur l'h\'et\'erog\'en\'eit\'e des donn\'ees : informations manquantes, format d\'esordonn\'e, unit\'es non uniformes, etc. L'objectif est de nettoyer ces donn\'ees, d'automatiser leur traitement et de produire un rapport complet d'analyse exploratoire. \\
+
+\subsection*{- Contexte pédagogique }
+Dans  le cadre du  module  de  Traitement  et  Visualisation  des  Données,  ce  projet vise à 
+appliquer concrètement  les compétences  acquises. Il couvre toute  la chaîne de traitement 
+de données, de leur collecte jusqu’à leur analyse visuelle et interprétation.
+Objectifs pédagogiques\\
+
+\subsection*{- Pertinence du sujet}
+
+L'analyse des données sur les ordinateurs portables est pertinente pour plusieurs raisons :
+
+\begin{itemize}
+    \item \textbf{Aide à la décision pour les consommateurs :} Avec la diversité croissante des modèles, marques, configurations et prix, les consommateurs ont besoin d'indicateurs clairs pour choisir un ordinateur adapté à leurs besoins et à leur budget.
+    
+    \item \textbf{Compréhension des tendances du marché :} Cette analyse permet d'identifier les caractéristiques techniques les plus répandues (ex. : quantité de RAM, type de processeur), les marques dominantes, ou encore les relations entre les composants et le prix.
+    
+    \item \textbf{Préparation à la modélisation prédictive :} En étudiant les corrélations et les distributions, on peut à terme construire des modèles de prédiction du prix ou de classification des produits selon leur gamme.
+    
+    \item \textbf{Exercice pédagogique complet :} Ce projet met en pratique toutes les étapes de la science des données : nettoyage, exploration, visualisation, interprétation, et préparation à la modélisation.
+\end{itemize}
+
+\subsection*{- Description du jeu de données}
+
+Le jeu de données analysé contient des informations sur \textbf{1303 ordinateurs portables}, réparties sur \textbf{12 variables}. Après nettoyage, 1273 lignes sont utilisables.
+
+Les colonnes incluent des caractéristiques techniques et commerciales, telles que :
+
+\begin{itemize}
+    \item \texttt{Comp} : la marque de l'ordinateur (ex : HP, Dell, Lenovo)
+    \item \texttt{Type Name} : le type de produit (Notebook, Ultrabook, etc.)
+    \item \texttt{Pouce} : taille de l’écran en pouces
+    \item \texttt{ScreenResolution} : résolution de l’écran
+    \item \texttt{Cpu}, \texttt{Gpu} : processeur et carte graphique
+    \item \texttt{Ram}, \texttt{Memory} : mémoire vive et stockage
+    \item \texttt{OpSys} : système d’exploitation
+    \item \texttt{Weight} : poids
+    \item \texttt{Price} : prix de l’ordinateur (en euros)
+\end{itemize}
+
+\textbf{Source :} Le fichier a été collecté via une base de données publique partagée dans le cadre d’un projet pédagogique universitaire. Il a été fourni sous forme de fichier CSV brut, nécessitant un important nettoyage préalable.
+
+
+
+
+\subsection*{- Objectifs pédagogique }
+L’objectif est de réaliser une étude de données complète en appliquant les quatre grandes 
+étapes suivantes : \\
+1. Collecte ou génération de données \\
+2. Nettoyage  des données \\
+3. Transformation  des données \\
+4. Analyse exploratoire et la visualisation \\
+
+\newpage
+\chapter{Bibliothèques utilisées}
+
+Ce projet repose sur l’utilisation de bibliothèques Python puissantes et largement utilisées dans le domaine de la science des données. Chacune d’elles joue un rôle essentiel à différentes étapes de l’analyse : traitement, visualisation, statistiques, etc.
+
+\section*{Bibliothèques principales}
+
+\begin{itemize}
+    \item \textbf{pandas} \\
+    Permet la manipulation et l'analyse de données sous forme de tableaux (DataFrame). Elle facilite les opérations de nettoyage, transformation, agrégation, et exportation de données.
+    
+    \item \textbf{numpy} \\
+    Fournit des structures de données numériques (tableaux, matrices) et des fonctions mathématiques rapides. Utilisée notamment pour les statistiques, les opérations vectorisées, et les manipulations numériques.
+
+    \item \textbf{matplotlib} \\
+    Bibliothèque de base pour la création de graphiques en 2D. Utilisée ici pour les histogrammes, boxplots, scatterplots, et autres visualisations personnalisées.
+
+    \item \textbf{seaborn} \\
+    Basée sur \texttt{matplotlib}, elle permet de créer des visualisations statistiques élégantes et informatives comme les heatmaps, pairplots, ou diagrammes avec régression.
+
+    \item \textbf{scikit-learn (sklearn)} \\
+    Utilisée pour les étapes de préparation à la modélisation, notamment pour la normalisation des données (\texttt{MinMaxScaler}, \texttt{StandardScaler}). Elle fournit aussi des outils de modélisation.
+
+    \item \textbf{scipy} \\
+    Fournit des fonctions pour les statistiques avancées. Utilisée ici pour les tests de normalité (\texttt{shapiro}), d’association (\texttt{chi2\_contingency}) et les analyses de variance (\texttt{f\_oneway}).
+
+    \item \textbf{statsmodels} \\
+    Employée pour créer des graphiques spécifiques comme les diagrammes mosaïques (via \texttt{mosaic}) afin de visualiser les associations entre variables qualitatives.
+
+    \item \textbf{os} \\
+    Permet la gestion des fichiers et des dossiers, comme la création automatique d’un dossier pour stocker les visualisations générées.
+
+    \item \textbf{argparse} \\
+    Utilisée pour gérer les arguments passés au script Python depuis la ligne de commande, ce qui permet d’automatiser et personnaliser le comportement du programme.
+
+    \item \textbf{warnings} \\
+    Permet de désactiver les avertissements inutiles (ex. : liés à \texttt{pandas}) pour améliorer la lisibilité des résultats.
+
+    \item \textbf{re (expressions régulières)} \\
+    Utilisée pour extraire et nettoyer des données textuelles complexes (ex. : conversion de tailles de stockage, nettoyage de chaînes contenant des unités comme \texttt{GB}, \texttt{TB}, \texttt{kg}, etc.).
+\end{itemize}
+
+\section*{Rôle global de ces bibliothèques}
+
+L’utilisation combinée de ces bibliothèques a permis de :
+
+\begin{itemize}
+    \item Importer et structurer les données efficacement
+    \item Nettoyer les données et traiter les valeurs manquantes
+    \item Réaliser des analyses statistiques univariées et bivariées
+    \item Visualiser les résultats pour faciliter leur interprétation
+    \item Préparer les données pour une modélisation future
+\end{itemize}
+
+Ces outils constituent l’ossature de tout projet de data science moderne et ont permis de rendre l’analyse complète, rapide, et reproductible.
+
+% ========================
+\chapter{Étapes de traitement des données}
+
+Ce chapitre décrit l'ensemble des opérations appliquées au jeu de données brut pour le rendre exploitable. Ces étapes comprennent le chargement, le nettoyage, la transformation et l'exploration initiale.
+
+\section{Chargement et inspection initiale}
+
+Le fichier \texttt{data.csv} contient \textbf{1303 lignes} et \textbf{12 colonnes}. Une inspection initiale a révélé la présence de \textbf{360 valeurs manquantes} et \textbf{29 doublons exacts}.
+
+\textbf{Script Python :}
+\begin{lstlisting}
+df = pd.read_csv('data.csv')
+df.info()
+df.describe()
+df.isnull().sum()
+df.duplicated().sum()
+\end{lstlisting}
+
+\section{Nettoyage des données}
+
+L’objectif du nettoyage est d’assurer la cohérence et la fiabilité des données. Les opérations effectuées incluent :
+
+\begin{itemize}
+    \item \textbf{Renommage des colonnes} pour faciliter leur traitement (ex : \texttt{Comp} devient \texttt{Company}, \texttt{Pouce} devient \texttt{Inches}, etc.).
+    
+    \item \textbf{Conversion des types} pour les colonnes numériques :
+        \begin{itemize}
+            \item \texttt{RAM}, \texttt{Storage}, \texttt{Weight} converties en nombres flottants.
+            \item Suppression des unités textuelles (GB, TB, kg, etc.).
+        \end{itemize}
+    
+    \item \textbf{Traitement des valeurs manquantes} : remplissage par la médiane (variables numériques) ou par une valeur "Unknown" (variables catégorielles).
+    
+    \item \textbf{Suppression des doublons} : 29 lignes en double ont été retirées.
+\end{itemize}
+
+Après nettoyage, \textbf{1274 lignes} sont conservées.
+
+\textbf{Script :}
+\begin{lstlisting}
+df['Price'] = df['Price'].str.replace('[^\d.]', '', regex=True).astype(float)
+df['Storage'] = df['Storage'].apply(extract_storage_size)
+df.drop_duplicates(inplace=True)
+\end{lstlisting}
+
+\section{Exploration initiale}
+
+Une exploration statistique a été réalisée pour :
+\begin{itemize}
+    \item Comprendre la répartition des variables (distributions, valeurs extrêmes).
+    \item Identifier les corrélations entre variables numériques.
+    \item Détecter les outliers via la méthode de l’intervalle interquartile (IQR).
+\end{itemize}
+
+\textbf{Visualisation de la distribution des variables numériques :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{1.png}
+    \caption{Distribution des prix}
+\end{figure}
+
+\textbf{Détection des valeurs aberrantes (outliers) :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{2.png}
+    \caption{Valeurs aberrantes du prix (méthode IQR)}
+\end{figure}
+
+\textbf{Matrice de corrélation :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{3.png}
+    \caption{Matrice de corrélation entre variables numériques}
+\end{figure}
+
+L'ensemble de ces étapes garantit une base solide pour les analyses statistiques et la modélisation prédictive à venir.
+
+\section*{Conclusion du chapitre}
+
+Les étapes de traitement des données ont permis de transformer un jeu de données brut, imparfait et hétérogène en un ensemble structuré, propre et cohérent. Le nettoyage rigoureux (valeurs manquantes, doublons, typage, unités) constitue la base indispensable à toute analyse fiable. Cette étape a assuré la qualité des données utilisées dans les phases ultérieures.
+
+
+
+\newpage
+% ========================
+\chapter{Analyse univariée}
+
+\section{Définition et objectifs}
+L'analyse univariée consiste à étudier séparément chaque variable pour en comprendre la distribution, les tendances centrales (moyenne, médiane), la dispersion (écart-type, amplitude), la forme (asymétrie, aplatissement) et la présence éventuelle de valeurs extrêmes. Elle permet de détecter des incohérences, des erreurs ou des comportements intéressants dans une seule variable.
+
+\section{Variables numériques analysées}
+Les variables numériques principales étudiées sont :
+
+\begin{itemize}
+    \item \textbf{Price} (Prix en euros)
+    \item \textbf{RAM} (Mémoire vive en Go)
+    \item \textbf{Storage} (Stockage total en Go)
+    \item \textbf{Inches} (Taille de l’écran en pouces)
+    \item \textbf{Weight} (Poids de l’ordinateur en kg)
+\end{itemize}
+
+\subsection*{Indicateurs statistiques calculés pour chaque variable :}
+\begin{itemize}
+    \item Moyenne, Médiane, Mode
+    \item Écart-type, Variance, Amplitude
+    \item Skewness (asymétrie) et Kurtosis (aplatissement)
+    \item Présence de valeurs extrêmes (méthode IQR)
+    \item Test de normalité de Shapiro-Wilk
+    \item Distribution cumulative et Q-Q Plot
+\end{itemize}
+
+\section{Méthode de détection des outliers}
+Pour détecter les valeurs aberrantes, nous avons utilisé la méthode de l’IQR (Interquartile Range), en calculant :
+
+\begin{itemize}
+    \item Q1 : Premier quartile
+    \item Q3 : Troisième quartile
+    \item IQR = Q3 - Q1
+    \item Seuil inférieur = Q1 - 1.5*IQR
+    \item Seuil supérieur = Q3 + 1.5*IQR
+\end{itemize}
+
+Toutes les valeurs en dehors de ces bornes sont considérées comme des outliers.
+
+\section{Tests de normalité}
+Le test de Shapiro-Wilk a été appliqué pour chaque variable numérique. Il permet de vérifier si une distribution suit une loi normale. Une p-value inférieure à 0.05 indique un écart significatif à la normalité.
+
+\begin{itemize}
+    \item \textbf{Résultat global :} La majorité des variables étudiées ne suivent pas une distribution normale (p-value < 0.05).
+\end{itemize}
+
+\section{Analyse détaillée par variable}
+
+\subsection*{\textbf{1. Price}}
+\begin{itemize}
+    \item Moyenne : 31200 €
+    \item Médiane : 29000 €
+    \item Écart-type : 8100 €
+    \item Skewness : 0.75 (distribution légèrement asymétrique à droite)
+    \item Kurtosis : 3.12 (distribution légèrement plus aplatie que la normale)
+    \item p-value Shapiro-Wilk : < 0.05 $\Rightarrow$ distribution non normale
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{4.png}
+    \caption{Histogramme de la variable Price — met en évidence une concentration autour de 25000-30000€ avec une queue droite}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{5.png}
+    \caption{Boxplot du prix des laptops — permet de visualiser les valeurs extrêmes et la dispersion générale}
+\end{figure}
+
+
+\subsection*{\textbf{2. RAM}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{6.png}
+    \caption{Histogramme de la mémoire RAM — majorité des laptops ont 4, 8 ou 16 Go, pic marqué à 8 Go}
+\end{figure}
+
+\subsection*{\textbf{3. Storage}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{7.png}
+    \caption{Distribution du stockage total — pic important à 256 Go et 1 To, montrant des standards répandus}
+\end{figure}
+
+\subsection*{\textbf{4. Inches}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{8.png}
+    \caption{Taille d’écran en pouces — concentration autour de 15 pouces, taille standard pour usage général}
+\end{figure}
+
+\subsection*{\textbf{5. Weight}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{9.png}
+    \caption{Répartition des poids des laptops — majorité entre 1.5 kg et 2.5 kg, quelques modèles très légers ou très lourds}
+\end{figure}
+
+\section*{Conclusion du chapitre}
+
+L'analyse univariée a permis de comprendre la distribution et les caractéristiques de chaque variable. On constate une forte asymétrie dans certaines variables comme le prix, ainsi que la présence de valeurs extrêmes. Cette étape a également révélé une absence de normalité dans la plupart des variables, guidant le choix des méthodes statistiques appropriées par la suite.
+
+
+\newpage
+% ========================
+\chapter{Analyse bivariée}
+
+\section{Définition et objectifs}
+L’analyse bivariée vise à explorer les relations entre deux variables à la fois, qu’elles soient numériques ou catégorielles. Elle permet de mettre en évidence des corrélations, des influences, ou des dépendances significatives entre les variables. Cela est essentiel pour comprendre les mécanismes sous-jacents aux données et préparer la modélisation.
+
+\section{Analyse bivariée numérique}
+
+Cette section explore les relations entre paires de variables numériques. Les méthodes principales utilisées sont :
+
+\begin{itemize}
+    \item Matrice de corrélation (coefficient de Pearson)
+    \item Graphiques de dispersion (scatterplots) accompagnés d'une droite de régression
+    \item Visualisation via Pairplot (comparaisons croisées multiples)
+    \item Analyse des relations entre chaque variable numérique et le prix
+\end{itemize}
+
+\textbf{Résultat :} Les variables comme la RAM, la taille de l'écran ou le stockage présentent une corrélation modérée mais significative avec le prix.
+
+\textbf{Matrice de corrélation :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{10.png}
+    \caption{Cette figure montre les coefficients de corrélation entre variables numériques. On observe des relations positives entre le prix et la RAM, la taille ou le stockage.}
+\end{figure}
+
+\textbf{Relation entre RAM et Prix :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{11.png}
+    \caption{Le scatterplot montre une tendance linéaire positive : les ordinateurs avec plus de RAM sont généralement plus chers.}
+\end{figure}
+
+\textbf{Scatterplot entre taille d'écran (Inches) et Prix :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{12.png}
+    \caption{Une légère corrélation entre la taille de l’écran et le prix, suggérant que les grands écrans coûtent souvent plus cher.}
+\end{figure}
+
+\textbf{Pairplot global (Price, RAM, Storage, Inches, Weight)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{13.png}
+    \caption{Vue croisée entre variables numériques montrant les distributions et relations bivariées. Utile pour détecter visuellement les corrélations.}
+\end{figure}
+
+\section{Analyse bivariée catégorielle}
+
+L’objectif est ici d’analyser les relations entre deux variables qualitatives, ou l’impact d’une variable catégorielle sur une variable numérique. Les tests utilisés :
+
+\begin{itemize}
+    \item Test du Chi² pour l’indépendance (variables qualitatives entre elles)
+    \item V de Cramer pour quantifier la force d’association
+    \item ANOVA (Analyse de la Variance) pour évaluer l’impact de variables catégorielles sur le prix
+\end{itemize}
+
+\textbf{Heatmap des relations catégorielles :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{14.png}
+    \caption{Cette heatmap présente l’intensité des associations entre variables catégorielles (ex : marque, système, type). Plus la couleur est foncée, plus la relation est forte.}
+\end{figure}
+
+\textbf{Diagramme mosaïque Marque - OS :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{15.png}
+    \caption{Le diagramme mosaïque montre comment les systèmes d’exploitation sont distribués selon la marque des ordinateurs. Windows domine chez HP, Asus, etc.}
+\end{figure}
+
+\textbf{Boxplot Prix par Type de Produit :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{16.png}
+    \caption{Les Ultrabooks et Workstations affichent des prix plus élevés, alors que les Notebooks sont souvent plus abordables.}
+\end{figure}
+
+\textbf{Analyse ANOVA :}
+\begin{itemize}
+    \item F = 18.35, p-value = 0.0002 $\Rightarrow$ influence significative
+    \item Variables significatives : \textbf{Company} (marque), \textbf{Operating System}, \textbf{Product Type}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{17.png}
+    \caption{La moyenne des prix varie fortement selon les marques. Certaines comme Apple ou MSI se distinguent par des prix moyens plus élevés.}
+\end{figure}
+
+\section*{Conclusion du chapitre}
+
+Cette analyse a mis en évidence des relations significatives entre variables. Des corrélations modérées mais cohérentes ont été détectées entre le prix et des variables telles que la RAM, la taille d’écran ou le stockage. Les tests statistiques (corrélation de Pearson, ANOVA, Chi²) ont confirmé l'influence de certaines caractéristiques sur le prix. Ces résultats orienteront la modélisation prédictive.
+
+
+\newpage
+% ========================
+\chapter{Analyse des variables qualitatives}
+
+\section*{Définition des variables qualitatives}
+
+Les variables qualitatives (aussi appelées catégorielles) sont des variables qui prennent des modalités distinctes et non numériques. Elles permettent de classer les individus dans des catégories sans relation d’ordre naturel. Par exemple : le système d’exploitation (\texttt{Operating\_System}), le fabricant (\texttt{Company}) ou le type de produit (\texttt{Product\_Type}).
+
+---
+
+\section{Analyse univariée des variables qualitatives}
+
+L’objectif est ici de comprendre la distribution des modalités de chaque variable qualitative. Nous analysons notamment :
+
+\begin{itemize}
+    \item Le nombre de catégories différentes
+    \item La fréquence de la modalité dominante (le mode)
+    \item Le ratio de diversité (nombre de modalités / nombre total d’observations)
+    \item Des représentations graphiques (diagrammes à barres et circulaires)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Exemple 1 — Répartition des systèmes d’exploitation :}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{18.png}
+    \caption{Répartition des systèmes d’exploitation utilisés}
+\end{figure}
+
+\textit{Interprétation :} La figure montre que le système Windows domine très largement le marché des ordinateurs portables, représentant plus de 80\% des cas. D'autres systèmes comme Linux ou MacOS sont présents mais beaucoup plus minoritaires.
+
+\vspace{0.5em}
+\textbf{Exemple 2 — Fréquence des marques :}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{19.png}
+    \caption{Top 10 des marques les plus fréquentes dans le jeu de données}
+\end{figure}
+
+\textit{Interprétation :} Les marques les plus représentées sont HP, Dell et Lenovo. Ce graphique montre la domination de quelques fabricants sur le marché. La présence de nombreuses marques moins fréquentes témoigne d’un marché relativement diversifié.
+
+\vspace{0.5em}
+\textbf{Exemple 3 — Prix moyen par système d’exploitation :}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{20.png}
+    \caption{Prix moyen des laptops selon le système d’exploitation}
+\end{figure}
+
+\textit{Interprétation :} Les laptops équipés de MacOS ou Linux ont un prix moyen plus élevé que ceux sous Windows. Cela s’explique notamment par le positionnement haut de gamme de certains fabricants (comme Apple).
+
+\vspace{0.5em}
+\textbf{Exemple 4 — Distribution des prix par marque :}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{21.png}
+    \caption{Distribution des prix par marque (Top 5)}
+\end{figure}
+
+\textit{Interprétation :} Les boxplots révèlent une forte variabilité des prix au sein de chaque marque. Certaines marques comme Apple présentent une médiane élevée avec peu d’outliers, tandis que d’autres comme Acer affichent une large dispersion.
+
+---
+
+\section{Analyse des associations catégorielles}
+
+Cette section étudie la dépendance entre deux variables qualitatives grâce au test du Chi² et à l’indice de V de Cramer. Une heatmap synthétise les résultats.
+
+\textbf{Exemple 5 — Heatmap des forces d’association :}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{15.png}
+    \caption{Heatmap des associations (V de Cramer) entre variables qualitatives}
+\end{figure}
+
+\textit{Interprétation :} On observe une association forte entre le type de produit et le système d’exploitation (ex. : notebooks avec Windows). De même, la marque est souvent liée à certaines GPU ou OS spécifiques.
+
+---
+
+\section{Analyse des combinaisons de caractéristiques}
+
+Certaines configurations sont particulièrement fréquentes dans les données (ex. : HP - Notebook - Windows). Cette section vise à identifier et interpréter ces combinaisons.
+
+\vspace{0.5em}
+\textbf{Exemple 6 — Combinaisons les plus fréquentes :}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{22.png}
+    \caption{Top 10 des combinaisons caractéristiques les plus fréquentes}
+\end{figure}
+
+\textit{Interprétation :} Le triplet \texttt{HP - Notebook - Windows} est très dominant. Ce résultat montre la standardisation des configurations dans le marché milieu de gamme.
+
+\vspace{0.5em}
+\textbf{Exemple 7 — Systèmes d’exploitation par type de produit :}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{23.png}
+    \caption{Répartition des systèmes d’exploitation selon le type de produit}
+\end{figure}
+
+\textit{Interprétation :} Les notebooks sont quasi-exclusivement équipés de Windows, tandis que certains types comme les workstations présentent plus de diversité.
+
+\vspace{0.5em}
+\textbf{Exemple 8 — Répartition des marques par type de produit :}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{24.png}
+    \caption{Répartition des marques selon le type de produit}
+\end{figure}
+
+\textit{Interprétation :} Certaines marques se concentrent sur des segments spécifiques (par exemple Asus sur les gaming laptops). HP et Dell sont présents sur une plus large gamme de produits.
+
+---
+
+\section*{Conclusion du chapitre}
+
+L’étude des variables qualitatives a révélé des tendances claires du marché : domination de certaines marques, configurations standardisées, et forte prévalence de Windows comme OS. Les combinaisons fréquentes et les associations catégorielles suggèrent des stratégies de segmentation. Ces éléments sont essentiels pour des modèles de classification ou de segmentation.
+
+
+
+\newpage
+% ========================
+\chapter{Préparation à la modélisation}
+
+\section{Encodage et normalisation}
+
+La préparation des données avant la modélisation est une étape cruciale. Elle vise à garantir que les données soient dans un format compatible avec les algorithmes d’apprentissage machine.
+
+\subsection*{Encodage des variables catégorielles}
+
+Les variables qualitatives (telles que \texttt{Company}, \texttt{Operating\_System}, \texttt{Product\_Type}, \texttt{GPU}) ont été transformées en variables numériques à l’aide du \textbf{One-Hot Encoding}, qui crée une nouvelle colonne binaire pour chaque modalité.
+
+\textit{Exemple :} la variable \texttt{Operating\_System} contenant trois modalités (\texttt{Windows}, \texttt{Linux}, \texttt{MacOS}) est transformée en trois colonnes : \texttt{Operating\_System\_Windows}, \texttt{Operating\_System\_Linux}, etc.
+
+\subsection*{Normalisation des variables numériques}
+
+Les variables numériques (prix, RAM, poids, stockage, taille d’écran) ont été normalisées selon plusieurs méthodes pour éviter que des différences d’échelle ne biaisent les modèles :
+
+\begin{itemize}
+    \item \textbf{Min-Max Scaling} : réduit les valeurs dans l’intervalle [0,1]
+    \item \textbf{Z-score (Standardisation)} : recentre les données autour de la moyenne (µ=0, σ=1)
+    \item \textbf{Échelle décimale} : utile pour réduire la magnitude d’une variable (ex. : poids)
+\end{itemize}
+
+Ces colonnes sont suffixées dans le dataset : \texttt{RAM\_Zscore}, \texttt{Price\_MinMax}, etc.
+
+\vspace{0.5em}
+\textbf{Script utilisé :}
+\begin{lstlisting}[language=Python]
+df_encoded = pd.get_dummies(df, columns=['Company', 'Operating_System'])
+scaler = StandardScaler()
+df['Price_Zscore'] = scaler.fit_transform(df[['Price']])
+\end{lstlisting}
+
+\vspace{0.5em}
+Les données préparées ont été sauvegardées dans le fichier :
+\begin{center}
+    \texttt{data\_prepared.csv}
+\end{center}
+
+
+\section{Agrégation par marque}
+
+Des statistiques agrégées ont été générées pour chaque marque afin d’analyser leurs positionnements sur le marché :
+
+\begin{itemize}
+    \item Prix moyen, minimum, maximum
+    \item RAM moyenne, capacité de stockage moyenne
+    \item Nombre total de produits proposés
+\end{itemize}
+
+\subsection*{Exemple de visualisations}
+
+\textbf{Prix moyen par marque (Top 10) :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{25.png}
+    \caption{Comparaison du prix moyen par marque}
+\end{figure}
+
+\textit{Interprétation :} Certaines marques comme Apple ou Microsoft présentent des prix moyens nettement plus élevés, ce qui reflète leur positionnement premium. En revanche, des marques comme Acer ou Lenovo proposent une gamme plus abordable.
+
+\vspace{0.5em}
+\textbf{RAM moyenne par marque (Top 10) :}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{26.png}
+    \caption{Mémoire RAM moyenne par constructeur}
+\end{figure}
+
+\textit{Interprétation :} Les marques haut de gamme ont tendance à proposer une configuration RAM plus généreuse. Cela permet de confirmer la corrélation entre performance technique et prix observée lors de l’analyse bivariée.
+
+---
+
+\section*{Conclusion}
+
+L’étape de préparation a permis de mettre les données dans un format compatible avec l’apprentissage machine :
+
+\begin{itemize}
+    \item Les variables numériques sont désormais sur des échelles comparables
+    \item Les variables qualitatives sont encodées de façon binaire
+    \item Des visualisations comparatives ont permis de mieux comprendre le positionnement de chaque marque
+\end{itemize}
+
+Ce travail ouvre la voie à la sélection de modèles et à la phase de modélisation supervisée.
+
+\newpage
+
+% ========================
+\chapter*{Conclusion Générale}
+\addcontentsline{toc}{chapter}{Conclusion Générale}
+
+Ce projet a permis de parcourir l’ensemble du pipeline d’analyse de données, de l’inspection initiale jusqu’à la préparation pour la modélisation. Nous avons mis en œuvre des techniques rigoureuses de nettoyage, d’analyse univariée et bivariée, ainsi que de transformation des données.
+
+Les visualisations ont permis de révéler des tendances intéressantes, comme la relation entre le prix et la RAM, ou la domination de certaines marques et systèmes d’exploitation. L'utilisation de tests statistiques a renforcé la validité des conclusions.
+
+Enfin, la structuration et la préparation des données ouvrent la voie à l’implémentation future de modèles prédictifs, que ce soit pour estimer le prix d’un laptop ou pour classer les produits selon leur gamme. Ce projet constitue une base solide pour explorer l'apprentissage supervisé dans un contexte réel et riche en variables.
+
+\bigskip
+\textbf{Perspectives :} intégrer un modèle de régression (linéaire, Ridge, etc.) ou des algorithmes de classification pour approfondir l’analyse prédictive.
+
+\chapter*{Annexes}
+\addcontentsline{toc}{chapter}{Annexes}
+
+\section*{A. Fonctions principales utilisées dans l'analyse}
+
+\subsection*{1. Détection des valeurs aberrantes avec la méthode IQR}
+\textbf{Fonction utilisée :} \texttt{detect_outliers_iqr}
+
+\begin{lstlisting}[language=Python, caption=Détection des outliers avec IQR]
+def detect_outliers_iqr(df, column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
+    return outliers, (lower_bound, upper_bound)
+\end{lstlisting}
+
+\textbf{Explication :} Cette fonction permet d’identifier les valeurs extrêmes dans une colonne numérique en se basant sur l’intervalle interquartile (IQR). Les valeurs situées en dehors des bornes (Q1 - 1.5×IQR ; Q3 + 1.5×IQR) sont considérées comme des outliers.
+
+\subsection*{2. Visualisation de la distribution}
+\textbf{Fonction utilisée :} \texttt{plot\_distribution}
+
+\begin{lstlisting}[language=Python, caption=Histogramme et boxplot d'une variable]
+def plot_distribution(df, column, color="royalblue", save=True):
+    ...
+\end{lstlisting}
+
+\textbf{Explication :} Cette fonction crée deux graphiques pour une variable donnée : un histogramme avec une courbe KDE (densité) et un boxplot. Elle est utilisée pour comprendre la forme et la dispersion d’une distribution.
+
+\subsection*{3. Nettoyage de la colonne Storage}
+\textbf{Fonction utilisée :} \texttt{extract\_storage\_size}
+
+\begin{lstlisting}[language=Python, caption=Conversion TB/GB pour les tailles de disque]
+def extract_storage_size(storage_str):
+    if pd.isna(storage_str) or not isinstance(storage_str, str):
+        return None
+    if 'TB' in storage_str.upper():
+        match = re.search(r'(\d+(?:\.\d+)?)\s*TB', storage_str, re.IGNORECASE)
+        if match:
+            return float(match.group(1)) * 1000
+    match = re.search(r'(\d+(?:\.\d+)?)\s*GB', storage_str, re.IGNORECASE)
+    if match:
+        return float(match.group(1))
+    match = re.search(r'(\d+)', storage_str)
+    if match:
+        return float(match.group(1))
+    return None
+\end{lstlisting}
+
+\textbf{Explication :} Elle permet d’uniformiser les tailles de stockage en convertissant les valeurs TB en GB, et en extrayant les quantités numériques même si le format varie (par ex. "1 TB SSD", "512GB HDD", etc.).
+
+\subsection*{4. Analyse univariée des variables numériques}
+\textbf{Fonction utilisée :} \texttt{perform\_univariate\_analysis}
+
+\begin{lstlisting}[language=Python, caption=Statistiques, histogrammes, tests de normalité]
+def perform_univariate_analysis(df, output_folder=RESULTS_FOLDER):
+    ...
+\end{lstlisting}
+
+\textbf{Explication :} Cette fonction génère une analyse détaillée pour chaque variable numérique : statistiques de base, histogrammes, boxplots, Q-Q plots, test de Shapiro-Wilk, et détection d’outliers. Les résultats sont sauvegardés dans des fichiers images et CSV.
+
+\subsection*{5. Préparation des données pour la modélisation}
+\textbf{Fonction utilisée :} \texttt{prepare\_data\_for\_modeling}
+
+\begin{lstlisting}[language=Python, caption=Encodage et normalisation des données]
+def prepare_data_for_modeling(df):
+    ...
+\end{lstlisting}
+
+\textbf{Explication :} Cette fonction normalise les colonnes numériques (MinMax, Z-score, etc.) et encode les variables catégorielles avec un encodage one-hot, afin de préparer les données à un modèle d’apprentissage automatique.
+
+\subsection*{6. Fonction principale du projet}
+\textbf{Fonction utilisée :} \texttt{main}
+
+\begin{lstlisting}[language=Python, caption=Pipeline complet de traitement des données]
+def main(file_path='data.csv', save_cleaned=True, save_prepared=True):
+    ...
+\end{lstlisting}
+
+\textbf{Explication :} C’est la fonction maîtresse qui appelle toutes les étapes de l’analyse de données : chargement, nettoyage, exploration, analyse univariée/bivariée, visualisations, et sauvegarde.
+
+
+
+
+
+\end{document}

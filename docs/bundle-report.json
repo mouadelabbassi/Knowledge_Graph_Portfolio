@@ -1,0 +1,19 @@
+{
+  "initialGzipBytes": 103445,
+  "initialGzipKB": 101.02,
+  "budgetKB": 300,
+  "chunks": [
+    {
+      "file": "assets/index-D__PBwZH.js",
+      "bytes": 339415,
+      "gzipBytes": 103445,
+      "initial": true
+    },
+    {
+      "file": "assets/KnowledgeGraph-D1LTvMuG.js",
+      "bytes": 1044501,
+      "gzipBytes": 286340,
+      "initial": false
+    }
+  ]
+}

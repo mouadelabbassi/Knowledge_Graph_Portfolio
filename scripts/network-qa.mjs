@@ -1,0 +1,90 @@
+import { spawn } from 'node:child_process';
+import { mkdir, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+
+const out = path.resolve('qa/current');
+await mkdir(out, { recursive: true });
+const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', ['--headless=new', '--remote-debugging-port=9295', `--user-data-dir=${path.resolve('tmp/network-qa-chrome')}`, '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', 'about:blank'], { windowsHide: true, stdio: 'ignore' });
+let socket;
+const pause = ms => new Promise(r => setTimeout(r, ms));
+try {
+  for (let i = 0; i < 50; i++) { try { await fetch('http://127.0.0.1:9295/json/version'); break; } catch { await pause(200); } }
+  const target = await (await fetch('http://127.0.0.1:9295/json/new?about:blank', { method: 'PUT' })).json();
+  socket = new WebSocket(target.webSocketDebuggerUrl);
+  await new Promise((resolve, reject) => { socket.onopen = resolve; socket.onerror = reject; });
+  let next = 0; const pending = new Map(), errors = [];
+  socket.onmessage = event => { const m = JSON.parse(event.data); if (m.id) { const p = pending.get(m.id); pending.delete(m.id); m.error ? p?.reject(new Error(JSON.stringify(m.error))) : p?.resolve(m.result); } else if (m.method === 'Runtime.exceptionThrown') errors.push(m.params.exceptionDetails); };
+  const cdp = (method, params = {}) => new Promise((resolve, reject) => { const id = ++next; pending.set(id, { resolve, reject }); socket.send(JSON.stringify({ id, method, params })); });
+  const evaluate = async expression => { const r = await cdp('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true }); if (r.exceptionDetails) throw new Error(JSON.stringify(r.exceptionDetails)); return r.result.value; };
+  const click = selector => evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);
+  const clusterTransforms = () => evaluate('[...document.querySelectorAll(".projected-label:has(.graph-label)")].map(e=>e.style.transform)');
+  const featuredTransforms = () => evaluate('[...document.querySelectorAll(".projected-feature")].map(e=>e.style.transform)');
+  const screenshot = async name => { const r = await cdp('Page.captureScreenshot', { format: 'png' }); await writeFile(path.join(out, name + '.png'), Buffer.from(r.data, 'base64')); };
+  const canvasPoint = () => evaluate(`(()=>{const r=document.querySelector('canvas').getBoundingClientRect();for(let y=r.top+65;y<r.bottom-50;y+=40)for(let x=r.left+r.width*.4;x<r.right-100;x+=40)if(document.elementFromPoint(x,y)?.tagName==='CANVAS')return{x,y};throw Error('No accessible canvas');})()`);
+  const drag = async (dx, dy, button = 'left') => {
+    const p = await canvasPoint(), buttons = button === 'left' ? 1 : 2;
+    await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', ...p });
+    await cdp('Input.dispatchMouseEvent', { type: 'mousePressed', ...p, button, buttons, clickCount: 1 });
+    for (let i = 1; i <= 16; i++) { await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', x: p.x + dx * i / 16, y: p.y + dy * i / 16, button, buttons }); await pause(20); }
+    await cdp('Input.dispatchMouseEvent', { type: 'mouseReleased', x: p.x + dx, y: p.y + dy, button, buttons: 0, clickCount: 1 });
+    await pause(150);
+  };
+  await cdp('Page.enable'); await cdp('Runtime.enable');
+  await cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
+  await cdp('Page.navigate', { url: process.env.PORTFOLIO_QA_URL ?? 'http://127.0.0.1:4178/' });
+  for (let i = 0; i < 80; i++) { if (await evaluate('Boolean(document.querySelector(".graph-label-layer"))')) break; await pause(200); }
+  assert(await evaluate('Boolean(document.querySelector("canvas"))'));
+  await pause(1400); await screenshot('network-desktop');
+  await click('.constellation-expand'); await pause(1600);
+  const swimA = await featuredTransforms(); await pause(800); const swimB = await featuredTransforms();
+  assert.notDeepEqual(swimA, swimB, 'Nodes should swim through space');
+  await click('[aria-label="Pause floating nodes"]'); await pause(1500);
+  const pausedA = await featuredTransforms(); await pause(650);
+  assert.deepEqual(await featuredTransforms(), pausedA, 'Pause should stop node motion');
+  const initial = await clusterTransforms();
+  await drag(170, 140);
+  assert.notDeepEqual(await clusterTransforms(), initial, 'Dragging must rotate while paused');
+  assert.equal(await evaluate('Boolean(document.querySelector(".constellation-insight h3"))'), false, 'Dragging must not select a node');
+  await screenshot('network-rotated');
+  const beforeWheel = await clusterTransforms(), wheelPoint = await canvasPoint();
+  const scrollBefore = await evaluate('scrollY');
+  await cdp('Input.dispatchMouseEvent', { type: 'mouseWheel', ...wheelPoint, deltaY: -300, deltaX: 0 }); await pause(300);
+  assert.notDeepEqual(await clusterTransforms(), beforeWheel, 'Mouse wheel must zoom');
+  assert.equal(await evaluate('scrollY'), scrollBefore, 'Zoom must not scroll the page');
+  const beforePan = await clusterTransforms(); await drag(70, 40, 'right');
+  assert.notDeepEqual(await clusterTransforms(), beforePan, 'Right drag must pan');
+  await click('[aria-label="Reset network view"]'); await pause(1400);
+  const reset = await clusterTransforms();
+  reset.forEach((value, i) => assert.equal(value, initial[i], 'Reset restores front orientation and framing'));
+  await click('[aria-label="Zoom in"]'); await pause(200);
+  assert.notDeepEqual(await clusterTransforms(), reset, 'Zoom button works');
+  await click('[aria-label="Zoom out"]'); await pause(200);
+  assert.deepEqual(await clusterTransforms(), reset, 'Inverse zoom button restores scale');
+  await drag(0, 390); await drag(0, 390);
+  assert.notDeepEqual(await clusterTransforms(), initial, 'Trackball permits rotation across the poles');
+  assert(await evaluate('[...document.querySelectorAll(".graph-label")].some(e=>getComputedStyle(e.parentElement).visibility==="visible")'));
+  await screenshot('network-flipped');
+  await click('[aria-label="Reset network view"]'); await pause(1400);
+  await click('[aria-label="Neural connections"]');
+  assert.equal(await evaluate('document.querySelector(".constellation-navigation button:last-child").getAttribute("aria-pressed")'), 'false');
+  await click('[aria-label="Neural connections"]');
+  await click('[aria-label="Resume floating nodes"]'); await pause(400);
+  await screenshot('network-fullscreen');
+  await cdp('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+  await cdp('Emulation.setTouchEmulationEnabled', { enabled: true }); await pause(1400);
+  const mobileBefore = await clusterTransforms();
+  await screenshot('network-mobile');
+  const p = await canvasPoint();
+  const touch = (type, points) => cdp('Input.dispatchTouchEvent', { type, touchPoints: points });
+  await touch('touchStart', [{ x: p.x - 35, y: p.y + 50, id: 1 }, { x: p.x + 35, y: p.y + 50, id: 2 }]);
+  for (let i = 1; i <= 8; i++) { await touch('touchMove', [{ x: p.x - 35 - i * 5, y: p.y + 50, id: 1 }, { x: p.x + 35 + i * 5, y: p.y + 50, id: 2 }]); await pause(30); }
+  await touch('touchEnd', []); await pause(200);
+  assert.notDeepEqual(await clusterTransforms(), mobileBefore, 'Pinch must zoom on touch screens');
+  assert(await evaluate('document.documentElement.scrollWidth<=innerWidth+1'));
+  await screenshot('network-mobile-pinch');
+  assert.equal(errors.length, 0, JSON.stringify(errors));
+  const result = { status: 'passed', checks: ['floating nodes', 'pause', 'drag rotation while paused', 'wheel zoom', 'no page scroll during zoom', 'right drag pan', 'reset orientation', 'zoom buttons', 'rotation across poles', 'neural links toggle', 'mobile pinch', 'mobile overflow', 'runtime errors'], checkedAt: new Date().toISOString() };
+  await writeFile(path.join(out, 'network-checks.json'), JSON.stringify(result, null, 2));
+  console.log(JSON.stringify(result, null, 2));
+} finally { socket?.close(); chrome.kill(); }
